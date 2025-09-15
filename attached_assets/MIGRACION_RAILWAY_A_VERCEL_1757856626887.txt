@@ -1,0 +1,270 @@
+================================================================================
+                    MIGRACIÓN DE RAILWAY A VERCEL - INMOBILIARIA
+================================================================================
+
+📅 FECHA: $(Get-Date -Format "dd/MM/yyyy HH:mm")
+🎯 PROYECTO: Inmobiliaria React + Express + MongoDB
+🔄 MIGRACIÓN: Railway → Vercel
+
+================================================================================
+                                RESUMEN DE CAMBIOS
+================================================================================
+
+✅ ARCHIVOS CREADOS:
+- vercel.json (Configuración principal de Vercel)
+- api/index.ts (Handler de API para Vercel)
+- env.example (Variables de entorno necesarias)
+- VERCEL_DEPLOY.md (Guía completa de deploy)
+
+✅ ARCHIVOS MODIFICADOS:
+- package.json (Agregado script vercel-build)
+- server/src/index.ts (Compatibilidad con Vercel)
+
+================================================================================
+                            CONFIGURACIÓN DE VERCEL
+================================================================================
+
+📁 ESTRUCTURA DEL PROYECTO:
+/
+├── client/          # Frontend React (Vite)
+├── server/          # Backend Express
+├── api/            # API Routes de Vercel
+├── vercel.json     # Configuración de Vercel
+└── package.json    # Scripts y dependencias
+
+🔧 CONFIGURACIÓN EN vercel.json:
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "client/package.json",
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "dist"
+      }
+    },
+    {
+      "src": "server/src/**/*.ts",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "/server/src/index.ts"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/client/dist/$1"
+    }
+  ],
+  "functions": {
+    "server/src/**/*.ts": {
+      "runtime": "nodejs18.x"
+    }
+  },
+  "env": {
+    "NODE_ENV": "production"
+  }
+}
+
+================================================================================
+                            VARIABLES DE ENTORNO
+================================================================================
+
+🔐 VARIABLES NECESARIAS EN VERCEL:
+MONGO_URI=mongodb+srv://usuario:password@cluster.mongodb.net/inmobiliaria?retryWrites=true&w=majority
+JWT_SECRET=tu_jwt_secret_muy_seguro_aqui
+ADMIN_USERNAME=admin
+ADMIN_PASSWORD=tu_password_admin_seguro
+NODE_ENV=production
+PORT=4000
+
+📝 INSTRUCCIONES PARA CONFIGURAR:
+1. Ve al dashboard de Vercel
+2. Selecciona tu proyecto
+3. Ve a Settings > Environment Variables
+4. Agrega cada variable una por una
+5. Asegúrate de marcar "Production" para todas
+
+================================================================================
+                            PASOS PARA EL DEPLOY
+================================================================================
+
+🚀 OPCIÓN 1: DEPLOY DESDE GITHUB (RECOMENDADO)
+1. Sube tu código a GitHub (si no lo has hecho)
+2. Ve a https://vercel.com y haz login
+3. Click en "New Project"
+4. Importa tu repositorio de GitHub
+5. Configura el proyecto:
+   - Framework Preset: Other
+   - Root Directory: ./ (raíz del proyecto)
+   - Build Command: npm run vercel-build
+   - Output Directory: client/dist
+6. Agrega las variables de entorno
+7. Click en "Deploy"
+
+🚀 OPCIÓN 2: DEPLOY DESDE TERMINAL
+1. Instalar Vercel CLI:
+   npm i -g vercel
+
+2. Login en Vercel:
+   vercel login
+
+3. Deploy:
+   vercel --prod
+
+================================================================================
+                            SCRIPTS ACTUALIZADOS
+================================================================================
+
+📦 PACKAGE.JSON - SCRIPTS AGREGADOS:
+"vercel-build": "npm run build:client"
+
+🔧 SCRIPTS DISPONIBLES:
+- npm run dev (Desarrollo local)
+- npm run build (Build completo)
+- npm run vercel-build (Build para Vercel)
+- npm start (Iniciar servidor)
+
+================================================================================
+                            CAMBIOS EN EL SERVIDOR
+================================================================================
+
+🔧 SERVER/SRC/INDEX.TS - MODIFICACIONES:
+1. Exportación de la app Express para Vercel
+2. Detección de entorno Vercel (process.env.VERCEL !== '1')
+3. CORS actualizado para dominios de Vercel
+4. Configuración de servidor solo para desarrollo local
+
+🌐 CORS CONFIGURADO PARA:
+- *.vercel.app
+- *.vercel.dev
+- localhost:3000
+- localhost:5000
+- localhost:5001
+
+================================================================================
+                            DIFERENCIAS RAILWAY vs VERCEL
+================================================================================
+
+| ASPECTO          | RAILWAY                    | VERCEL                      |
+|------------------|----------------------------|-----------------------------|
+| Arquitectura     | Servidor tradicional       | Serverless Functions        |
+| Base de datos    | MongoDB Atlas              | MongoDB Atlas (igual)       |
+| Variables env    | Dashboard Railway          | Dashboard Vercel            |
+| Logs             | Railway CLI                | Vercel CLI o Dashboard      |
+| Dominio          | *.railway.app              | *.vercel.app                |
+| Escalabilidad    | Manual                     | Automática                  |
+| Costo            | Por uso de recursos        | Por requests/bandwidth      |
+
+================================================================================
+                            URLS DEL DEPLOY
+================================================================================
+
+🌐 URLs DESPUÉS DEL DEPLOY:
+- Frontend: https://tu-proyecto.vercel.app
+- API: https://tu-proyecto.vercel.app/api/*
+- Health Check: https://tu-proyecto.vercel.app/api/health
+- Login Admin: https://tu-proyecto.vercel.app/api/login
+
+================================================================================
+                            VERIFICACIÓN DEL DEPLOY
+================================================================================
+
+✅ CHECKLIST DE VERIFICACIÓN:
+1. Frontend carga correctamente
+2. API responde en /api/health
+3. Login de admin funciona
+4. CORS no bloquea requests
+5. Base de datos conecta correctamente
+6. Variables de entorno están configuradas
+
+🔍 COMANDOS DE VERIFICACIÓN:
+curl https://tu-proyecto.vercel.app/api/health
+curl -X POST https://tu-proyecto.vercel.app/api/login -d '{"username":"admin","password":"tu_password"}'
+
+================================================================================
+                            TROUBLESHOOTING
+================================================================================
+
+🐛 PROBLEMAS COMUNES Y SOLUCIONES:
+
+1. ERROR DE CORS:
+   - Verificar que dominios estén en corsOptions
+   - Revisar headers en api/index.ts
+
+2. ERROR DE BASE DE DATOS:
+   - Verificar MONGO_URI en variables de entorno
+   - Comprobar conexión a MongoDB Atlas
+
+3. ERROR DE BUILD:
+   - Verificar dependencias en package.json
+   - Revisar errores de TypeScript
+   - Comprobar que vercel-build script existe
+
+4. ERROR 500 EN API:
+   - Revisar logs en dashboard de Vercel
+   - Verificar que todas las variables estén configuradas
+   - Comprobar que la app Express se exporta correctamente
+
+================================================================================
+                            MONITOREO Y LOGS
+================================================================================
+
+📊 HERRAMIENTAS DE MONITOREO:
+- Dashboard Vercel > Functions > Logs
+- Dashboard Vercel > Analytics
+- Dashboard Vercel > Speed Insights
+
+🔍 COMANDOS ÚTILES:
+- vercel logs (Ver logs desde terminal)
+- vercel --prod (Deploy de producción)
+- vercel env ls (Listar variables de entorno)
+
+================================================================================
+                            ACTUALIZACIONES FUTURAS
+================================================================================
+
+🔄 PARA ACTUALIZAR EL DEPLOY:
+1. Hacer cambios en el código
+2. Commit y push a GitHub (si tienes auto-deploy)
+3. O ejecutar: vercel --prod
+
+📝 NOTAS IMPORTANTES:
+- Vercel hace auto-deploy desde GitHub por defecto
+- Los cambios se reflejan automáticamente
+- Siempre verificar que las variables de entorno estén actualizadas
+
+================================================================================
+                            CONTACTO Y SOPORTE
+================================================================================
+
+📚 DOCUMENTACIÓN:
+- Vercel Docs: https://vercel.com/docs
+- Vercel CLI: https://vercel.com/docs/cli
+- MongoDB Atlas: https://docs.atlas.mongodb.com
+
+🆘 SOPORTE:
+- Vercel Support: https://vercel.com/support
+- GitHub Issues: Para problemas del código
+
+================================================================================
+                                ¡LISTO!
+================================================================================
+
+🎉 TU PROYECTO INMOBILIARIA ESTÁ LISTO PARA VERCEL:
+
+✅ Frontend React optimizado
+✅ API Express serverless
+✅ Base de datos MongoDB Atlas
+✅ Autenticación JWT
+✅ CORS configurado
+✅ Variables de entorno seguras
+✅ Documentación completa
+
+🚀 SIGUIENTE PASO: Hacer el deploy siguiendo las instrucciones de arriba
+
+================================================================================
+                            FIN DEL DOCUMENTO
+================================================================================

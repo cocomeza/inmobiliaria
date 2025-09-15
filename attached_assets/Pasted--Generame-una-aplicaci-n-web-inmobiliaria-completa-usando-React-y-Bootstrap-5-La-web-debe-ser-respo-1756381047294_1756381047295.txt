@@ -1,0 +1,65 @@
+"Generame una aplicación web inmobiliaria completa usando React y Bootstrap 5. La web debe ser responsiva, intuitiva y visualmente similar al sitio original de Diego Nadal Inmobiliaria, pero con mejoras en diseño, usabilidad y rendimiento. No uses Tailwind ni SASS. La app debe estar dividida en componentes reutilizables y organizada en carpetas.
+
+La estética debe basarse en esta paleta de colores:
+
+#434036 (Armadillo): texto principal, navbar, íconos
+
+#D1C5AB (Chino): fondos suaves, secciones institucionales
+
+#84B0CB (Glacier): botones, hover, acentos visuales
+
+#6787B7 (Ship Cove): links, etiquetas, detalles secundarios
+
+La web está pensada para Argentina y para usuarios argentinos, por lo tanto:
+
+Usá vocabulario local en los textos, botones y formularios (por ejemplo: "Solicitá información", "Conocé nuestras propiedades", "En venta", "En alquiler", "Haz tu consulta", "Ubicación", "Teléfono", etc.)
+
+Adaptá el tono a uno cercano, profesional y claro, como el que usan las inmobiliarias argentinas en redes y WhatsApp
+
+Mostrá precios en dólares, pero con formato accesible para el público local
+
+Estructura requerida:
+
+Navbar fijo y responsivo con enlaces a Inicio, Propiedades, Servicios, Nosotros y Contacto
+
+Hero principal con imagen de fondo y texto institucional
+
+Buscador con filtros por tipo de propiedad (Casa, Campo, Departamento, Desarrollo, Local, Terreno) y orden (Más nuevo, Precio ascendente, Precio descendente)
+
+Listado de propiedades en cuadrícula responsiva, con cards que incluyan imagen, título, descripción, precio y etiqueta tipo 'En venta' o 'En alquiler'
+
+Sección de Servicios con fondo oscuro, valores institucionales (Pasión, Profesionalismo, Honestidad) y texto de misión/visión
+
+Sección Nosotros con imagen, texto institucional y CTA
+
+Formulario de Contacto con validación en React y mapa embebido (Google Maps o Leaflet)
+
+Footer profesional con redes sociales (Instagram y Facebook), copyright y contacto
+
+Funcionalidades adicionales:
+
+Enlaces a redes sociales que se abren en nueva pestaña (target="_blank" con rel="noopener noreferrer")
+
+Botón flotante de WhatsApp en el Home que redirige al chat del cliente (https://wa.me/5493435172107)
+
+Carga dinámica de propiedades desde archivo JSON o array local
+
+Filtros que funcionan sin recargar la página
+
+Íconos representando servicios (FontAwesome)
+
+Animaciones suaves al hacer scroll (usando AOS o CSS)
+
+Código limpio, comentado y fácil de mantener
+
+Deploy listo para subir a Netlify, Render o Vercel
+
+Organización del proyecto:
+
+Componentes: Navbar, Hero, Filtros, PropertyCard, Services, About, ContactForm, Footer, WhatsAppButton
+
+Carpeta assets para imágenes y estilos
+
+Carpeta data para propiedades en JSON
+
+Uso de useState y useEffect para manejar filtros y carga de datos

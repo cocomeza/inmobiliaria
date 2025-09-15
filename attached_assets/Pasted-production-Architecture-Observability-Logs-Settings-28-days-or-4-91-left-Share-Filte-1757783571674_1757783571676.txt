@@ -1,0 +1,121 @@
+production
+Architecture
+Observability
+Logs
+Settings
+
+28 days or $4.91 left
+
+
+Share
+
+Filter and search logs
+
+Last 15 min
+
+
+You reached the start of the range
+Sep 13, 2025, 1:57 PM
+Starting Container
+npm warn config production Use `--omit=dev` instead.
+> inmobiliaria-react-ts@1.0.0 start
+> cd server && node dist/index.js
+🔧 Cargando variables de entorno desde: /.env
+[dotenv@17.2.2] injecting env (0) from ../../.env -- tip: 🔐 encrypt with Dotenvx: https://dotenvx.com
+🔧 Intentando cargar desde workspace: /app/server/.env
+[dotenv@17.2.2] injecting env (0) from .env -- tip: 📡 version env with Radar: https://dotenvx.com/radar
+✅ Variables disponibles: { MONGO_URI: false, JWT_SECRET: true }
+❌ Error conectando a MongoDB: Error: MONGO_URI no está definida en las variables de entorno
+    at connectDB (/app/server/dist/config/database.js:11:19)
+    at Object.<anonymous> (/app/server/dist/index.js:82:27)
+    at Module._compile (node:internal/modules/cjs/loader:1546:14)
+    at Object..js (node:internal/modules/cjs/loader:1689:10)
+    at Module.load (node:internal/modules/cjs/loader:1318:32)
+    at Function._load (node:internal/modules/cjs/loader:1128:12)
+    at TracingChannel.traceSync (node:diagnostics_channel:315:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:218:24)
+    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:170:5)
+    at node:internal/main/run_main_module:36:49
+npm warn config production Use `--omit=dev` instead.
+> inmobiliaria-react-ts@1.0.0 start
+> cd server && node dist/index.js
+Stopping Container
+🔧 Cargando variables de entorno desde: /.env
+[dotenv@17.2.2] injecting env (0) from ../../.env -- tip: 🔐 prevent building .env in docker: https://dotenvx.com/prebuild
+🔧 Intentando cargar desde workspace: /app/server/.env
+[dotenv@17.2.2] injecting env (0) from .env -- tip: ⚙️  enable debug logging with { debug: true }
+✅ Variables disponibles: { MONGO_URI: false, JWT_SECRET: true }
+❌ Error conectando a MongoDB: Error: MONGO_URI no está definida en las variables de entorno
+    at connectDB (/app/server/dist/config/database.js:11:19)
+    at Object.<anonymous> (/app/server/dist/index.js:82:27)
+    at Module._compile (node:internal/modules/cjs/loader:1546:14)
+    at Object..js (node:internal/modules/cjs/loader:1689:10)
+    at Module.load (node:internal/modules/cjs/loader:1318:32)
+    at Function._load (node:internal/modules/cjs/loader:1128:12)
+    at TracingChannel.traceSync (node:diagnostics_channel:315:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:218:24)
+    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:170:5)
+    at node:internal/main/run_main_module:36:49
+npm warn config production Use `--omit=dev` instead.
+> inmobiliaria-react-ts@1.0.0 start
+> cd server && node dist/index.js
+🔧 Cargando variables de entorno desde: /.env
+[dotenv@17.2.2] injecting env (0) from ../../.env -- tip: ⚙️  override existing env vars with { override: true }
+🔧 Intentando cargar desde workspace: /app/server/.env
+[dotenv@17.2.2] injecting env (0) from .env -- tip: ⚙️  override existing env vars with { override: true }
+✅ Variables disponibles: { MONGO_URI: false, JWT_SECRET: true }
+❌ Error conectando a MongoDB: Error: MONGO_URI no está definida en las variables de entorno
+    at connectDB (/app/server/dist/config/database.js:11:19)
+    at Object.<anonymous> (/app/server/dist/index.js:82:27)
+    at Module._compile (node:internal/modules/cjs/loader:1546:14)
+    at Object..js (node:internal/modules/cjs/loader:1689:10)
+    at Module.load (node:internal/modules/cjs/loader:1318:32)
+    at Function._load (node:internal/modules/cjs/loader:1128:12)
+    at TracingChannel.traceSync (node:diagnostics_channel:315:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:218:24)
+    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:170:5)
+    at node:internal/main/run_main_module:36:49
+npm warn config production Use `--omit=dev` instead.
+> inmobiliaria-react-ts@1.0.0 start
+> cd server && node dist/index.js
+🔧 Cargando variables de entorno desde: /.env
+[dotenv@17.2.2] injecting env (0) from ../../.env -- tip: ⚙️  specify custom .env file path with { path: '/custom/path/.env' }
+🔧 Intentando cargar desde workspace: /app/server/.env
+[dotenv@17.2.2] injecting env (0) from .env -- tip: 🔐 prevent building .env in docker: https://dotenvx.com/prebuild
+✅ Variables disponibles: { MONGO_URI: false, JWT_SECRET: true }
+❌ Error conectando a MongoDB: Error: MONGO_URI no está definida en las variables de entorno
+    at connectDB (/app/server/dist/config/database.js:11:19)
+    at Object.<anonymous> (/app/server/dist/index.js:82:27)
+    at Module._compile (node:internal/modules/cjs/loader:1546:14)
+    at Object..js (node:internal/modules/cjs/loader:1689:10)
+    at Module.load (node:internal/modules/cjs/loader:1318:32)
+    at Function._load (node:internal/modules/cjs/loader:1128:12)
+    at TracingChannel.traceSync (node:diagnostics_channel:315:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:218:24)
+    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:170:5)
+    at node:internal/main/run_main_module:36:49
+npm warn config production Use `--omit=dev` instead.
+> inmobiliaria-react-ts@1.0.0 start
+> cd server && node dist/index.js
+🔧 Cargando variables de entorno desde: /.env
+[dotenv@17.2.2] injecting env (0) from ../../.env -- tip: 📡 observe env with Radar: https://dotenvx.com/radar
+🔧 Intentando cargar desde workspace: /app/server/.env
+[dotenv@17.2.2] injecting env (0) from .env -- tip: 📡 auto-backup env with Radar: https://dotenvx.com/radar
+✅ Variables disponibles: { MONGO_URI: false, JWT_SECRET: true }
+❌ Error conectando a MongoDB: Error: MONGO_URI no está definida en las variables de entorno
+    at connectDB (/app/server/dist/config/database.js:11:19)
+    at Object.<anonymous> (/app/server/dist/index.js:82:27)
+    at Module._compile (node:internal/modules/cjs/loader:1546:14)
+    at Object..js (node:internal/modules/cjs/loader:1689:10)
+    at Module.load (node:internal/modules/cjs/loader:1318:32)
+    at Function._load (node:internal/modules/cjs/loader:1128:12)
+    at TracingChannel.traceSync (node:diagnostics_channel:315:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:218:24)
+    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:170:5)
+    at node:internal/main/run_main_module:36:49
+npm error path /app
+npm error command failed
+npm error signal SIGTERM
+npm error command sh -c cd server && node dist/index.js
+npm error A complete log of this run can be found in: /root/.npm/_logs/2025-09-12T18_12_20_650Z-debug-0.log
+npm warn config production Use `--omit=dev` instead.

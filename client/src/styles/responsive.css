@@ -1,0 +1,149 @@
+/* Mejoras de responsividad y experiencia táctil */
+
+/* Tamaños de toque más grandes para móviles */
+@media (max-width: 768px) {
+  .btn {
+    min-height: 44px;
+    padding: 0.75rem 1rem;
+  }
+  
+  .btn-sm {
+    min-height: 40px;
+    padding: 0.5rem 0.75rem;
+  }
+  
+  .form-control,
+  .form-select {
+    min-height: 48px;
+    font-size: 16px; /* Evita zoom en iOS */
+  }
+  
+  .form-control-lg,
+  .form-select-lg {
+    min-height: 56px;
+    font-size: 18px;
+    padding: 1rem;
+  }
+}
+
+/* Mejora visual de cards en hover/focus */
+.card-hover {
+  transition: all 0.3s ease;
+}
+
+.card-hover:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15) !important;
+}
+
+/* Mejor espaciado para títulos en móviles */
+@media (max-width: 576px) {
+  h1 {
+    font-size: 1.75rem;
+  }
+  
+  h2 {
+    font-size: 1.5rem;
+  }
+  
+  .display-6 {
+    font-size: 2rem;
+  }
+}
+
+/* Imágenes responsivas en PropertyCards */
+.card-img-responsive {
+  transition: transform 0.3s ease;
+}
+
+.card:hover .card-img-responsive {
+  transform: scale(1.05);
+}
+
+/* Mejor spacing para elementos de formulario */
+.form-select-touch {
+  min-height: 48px;
+}
+
+/* Mejoras para la navegación móvil */
+@media (max-width: 991px) {
+  .navbar-nav .nav-link {
+    padding: 0.75rem 1rem;
+    text-align: center;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+  }
+  
+  .navbar-nav .nav-link:last-child {
+    border-bottom: none;
+  }
+}
+
+/* Mejoras para tablas en dispositivos pequeños */
+@media (max-width: 991px) {
+  .table-responsive {
+    border: none;
+  }
+}
+
+/* Mejor spacing para containers en móviles */
+@media (max-width: 576px) {
+  .container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+}
+
+/* Hero section más compacto en móviles */
+@media (max-width: 768px) {
+  .hero {
+    min-height: 60vh;
+  }
+  
+  .hero-overlay {
+    padding: 2rem 0 !important;
+  }
+}
+
+/* Mejoras para el login en móviles */
+@media (max-width: 576px) {
+  .min-vh-100 {
+    min-height: 100vh;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+  }
+}
+
+/* Animaciones suaves para interacciones táctiles */
+.btn, .card, .form-control, .form-select {
+  transition: all 0.2s ease;
+}
+
+/* Mejor contraste para badges */
+.badge {
+  font-weight: 600;
+  padding: 0.5em 0.75em;
+}
+
+/* Mejoras específicas para admin panel */
+@media (max-width: 991px) {
+  .admin-card {
+    margin-bottom: 1rem;
+  }
+  
+  .admin-actions {
+    width: 100%;
+  }
+}
+
+/* Loading spinners más visibles */
+.spinner-border {
+  width: 3rem;
+  height: 3rem;
+}
+
+/* Mejor separación visual en listas móviles */
+@media (max-width: 991px) {
+  .property-card-mobile {
+    border-left: 4px solid var(--bs-primary);
+  }
+}

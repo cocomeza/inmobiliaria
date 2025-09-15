@@ -1,0 +1,53 @@
+[
+  {
+    "id": "1",
+    "title": "Departamento en Palermo",
+    "description": "2 ambientes luminosos cerca de parques y polo gastronómico.",
+    "priceUsd": 150000,
+    "address": "Cerviño 4800, Palermo, CABA",
+    "bedrooms": 2,
+    "bathrooms": 1,
+    "lat": -34.573,
+    "lng": -58.419,
+    "images": [
+      "/uploads/1757692143686_representacion-3d-del-modelo-de-casa.jpg"
+    ],
+    "featured": true,
+    "type": "Departamento",
+    "status": "En venta"
+  },
+  {
+    "id": "1757522516701",
+    "title": "Casa de prueba oLK3Up - EDITADA",
+    "description": "Una hermosa casa de prueba para verificar la funcionalidad",
+    "priceUsd": 250000,
+    "images": [
+      "/uploads/1757661240692_moderna-casa-de-lujo-con-piscina.jpg"
+    ],
+    "featured": false,
+    "type": "Casa",
+    "status": "En alquiler"
+  },
+  {
+    "id": "1757661924099",
+    "title": "🏠 Nueva Casa de Prueba SYNC",
+    "description": "Esta propiedad debe aparecer inmediatamente en la página principal",
+    "priceUsd": 350000,
+    "images": [],
+    "featured": true,
+    "type": "Casa",
+    "status": "En venta"
+  },
+  {
+    "id": "1757692420296",
+    "title": "terreno de 50 x 50",
+    "description": "excelente zona",
+    "priceUsd": 2000,
+    "images": [
+      "/uploads/1757692410623_paisaje-de-campo.jpg"
+    ],
+    "featured": false,
+    "type": "Terreno",
+    "status": "En venta"
+  }
+]

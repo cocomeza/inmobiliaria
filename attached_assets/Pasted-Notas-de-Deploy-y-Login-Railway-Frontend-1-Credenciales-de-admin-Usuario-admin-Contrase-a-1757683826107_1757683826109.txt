@@ -1,0 +1,52 @@
+Notas de Deploy y Login (Railway + Frontend)
+
+1) Credenciales de admin
+- Usuario: admin
+- Contraseña: inmobiliaria123
+
+2) Variables de entorno (backend en Railway)
+- ADMIN_USERNAME=admin
+- ADMIN_PASSWORD=inmobiliaria123
+- JWT_SECRET=<cadena_segura>
+- NODE_ENV=production
+
+Consejo: evitar espacios al principio/fin al pegar valores.
+
+3) Cambios aplicados en el proyecto
+- Frontend (client/src/pages/Login.tsx):
+  - Se desactivó autocapitalización, autocorrección y spellcheck en usuario/contraseña.
+  - Se normaliza antes de enviar: usuario en minúsculas y sin espacios, contraseña sin espacios.
+- Backend (server/src/index.ts):
+  - Se normalizan entradas y envs al validar: usuario trim + lowercase, contraseña trim.
+
+4) Redeploy necesario
+- Backend: redeploy para tomar envs y código nuevo.
+- Frontend: redeploy también si es un servicio separado (Render/Vercel/Railway).
+
+5) URL del API en el frontend
+- Por defecto el cliente usa rutas relativas.
+- Si frontend y backend están en dominios distintos, definir en el servicio del frontend:
+  - VITE_API_URL=https://TU-BACKEND.railway.app
+- Si comparten dominio o hay reverse proxy, no hace falta.
+
+6) CORS del backend
+- Permitidos por defecto: *.railway.app, *.onrender.com, *.replit.dev, *.replit.app y una URL ejemplo de Render.
+- Si tu frontend está en otro dominio, agregarlo al array de origins y redeploy.
+
+7) Prueba rápida (móvil o escritorio)
+- Ir a /login
+- Usuario: admin
+- Contraseña: inmobiliaria123
+- Debe redirigir a /admin y guardar token en localStorage (adminToken).
+
+8) Troubleshooting si falla
+- Confirmar envs exactos en Railway (sin espacios extra).
+- Asegurar que el frontend apunta al backend correcto (VITE_API_URL) si están en dominios distintos.
+- Probar endpoint de salud del backend: GET /api/health
+- Verificar CORS: si el dominio del frontend no está permitido, agregarlo y redeploy.
+- Revisar consola del navegador (errores de red) y respuestas del backend (401/403/404).
+
+9) Notas sobre móviles
+- Teclados móviles suelen poner mayúsculas/autocorrección; ya está mitigado desactivándolo y normalizando datos antes de validar.
+
+Fin.

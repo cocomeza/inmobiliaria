@@ -1,0 +1,265 @@
+2025-09-11T21:55:16.000000000Z [inf]  Starting Container
+2025-09-11T21:55:17.890301221Z [err]  npm warn config production Use `--omit=dev` instead.
+2025-09-11T21:55:17.890311069Z [inf]  
+2025-09-11T21:55:17.890318744Z [inf]  > inmobiliaria-react-ts@1.0.0 start
+2025-09-11T21:55:17.890329196Z [inf]  > cd server && node dist/index.js
+2025-09-11T21:55:17.890341323Z [inf]  
+2025-09-11T21:55:17.890356940Z [inf]  Fallback: usando ruta /app/client/dist
+2025-09-11T21:55:17.890364723Z [inf]  Sirviendo archivos estáticos desde: /app/client/dist
+2025-09-11T21:55:17.890372471Z [err]  /app/node_modules/path-to-regexp/dist/index.js:73
+2025-09-11T21:55:17.890386663Z [err]              throw new TypeError(`Missing parameter name at ${i}: ${DEBUG_URL}`);
+2025-09-11T21:55:17.890393835Z [err]              ^
+2025-09-11T21:55:17.890402722Z [err]  
+2025-09-11T21:55:17.890409985Z [err]  TypeError: Missing parameter name at 1: https://git.new/pathToRegexpError
+2025-09-11T21:55:17.890444614Z [err]      at name (/app/node_modules/path-to-regexp/dist/index.js:73:19)
+2025-09-11T21:55:17.890454533Z [err]      at lexer (/app/node_modules/path-to-regexp/dist/index.js:91:27)
+2025-09-11T21:55:17.890464157Z [err]      at lexer.next (<anonymous>)
+2025-09-11T21:55:17.890474358Z [err]      at Iter.peek (/app/node_modules/path-to-regexp/dist/index.js:106:38)
+2025-09-11T21:55:17.890482284Z [err]      at Iter.tryConsume (/app/node_modules/path-to-regexp/dist/index.js:112:28)
+2025-09-11T21:55:17.890490824Z [err]      at Iter.text (/app/node_modules/path-to-regexp/dist/index.js:128:30)
+2025-09-11T21:55:17.890497313Z [err]      at consume (/app/node_modules/path-to-regexp/dist/index.js:152:29)
+2025-09-11T21:55:17.890504092Z [err]      at parse (/app/node_modules/path-to-regexp/dist/index.js:183:20)
+2025-09-11T21:55:17.890513126Z [err]      at /app/node_modules/path-to-regexp/dist/index.js:294:74
+2025-09-11T21:55:17.890531615Z [err]      at Array.map (<anonymous>)
+2025-09-11T21:55:17.890557665Z [err]  
+2025-09-11T21:55:17.890576076Z [err]  Node.js v18.20.8
+2025-09-11T21:55:18.814909632Z [err]  npm warn config production Use `--omit=dev` instead.
+2025-09-11T21:55:18.912536988Z [inf]  
+2025-09-11T21:55:18.912542924Z [inf]  > inmobiliaria-react-ts@1.0.0 start
+2025-09-11T21:55:18.912548804Z [inf]  > cd server && node dist/index.js
+2025-09-11T21:55:18.912554826Z [inf]  
+2025-09-11T21:55:19.072926510Z [inf]  Fallback: usando ruta /app/client/dist
+2025-09-11T21:55:19.072936897Z [inf]  Sirviendo archivos estáticos desde: /app/client/dist
+2025-09-11T21:55:19.072943641Z [err]  /app/node_modules/path-to-regexp/dist/index.js:73
+2025-09-11T21:55:19.072949634Z [err]              throw new TypeError(`Missing parameter name at ${i}: ${DEBUG_URL}`);
+2025-09-11T21:55:19.072955825Z [err]              ^
+2025-09-11T21:55:19.072961020Z [err]  
+2025-09-11T21:55:19.072968044Z [err]  TypeError: Missing parameter name at 1: https://git.new/pathToRegexpError
+2025-09-11T21:55:19.072974979Z [err]      at name (/app/node_modules/path-to-regexp/dist/index.js:73:19)
+2025-09-11T21:55:19.072981605Z [err]      at lexer (/app/node_modules/path-to-regexp/dist/index.js:91:27)
+2025-09-11T21:55:19.072987103Z [err]      at lexer.next (<anonymous>)
+2025-09-11T21:55:19.072992723Z [err]      at Iter.peek (/app/node_modules/path-to-regexp/dist/index.js:106:38)
+2025-09-11T21:55:19.072998009Z [err]      at Iter.tryConsume (/app/node_modules/path-to-regexp/dist/index.js:112:28)
+2025-09-11T21:55:19.073003001Z [err]      at Iter.text (/app/node_modules/path-to-regexp/dist/index.js:128:30)
+2025-09-11T21:55:19.073009166Z [err]      at consume (/app/node_modules/path-to-regexp/dist/index.js:152:29)
+2025-09-11T21:55:19.073014729Z [err]      at parse (/app/node_modules/path-to-regexp/dist/index.js:183:20)
+2025-09-11T21:55:19.073019540Z [err]      at /app/node_modules/path-to-regexp/dist/index.js:294:74
+2025-09-11T21:55:19.073025032Z [err]      at Array.map (<anonymous>)
+2025-09-11T21:55:19.073037197Z [err]  
+2025-09-11T21:55:19.073045962Z [err]  Node.js v18.20.8
+2025-09-11T21:55:20.465507096Z [err]  npm warn config production Use `--omit=dev` instead.
+2025-09-11T21:55:20.505189309Z [inf]  
+2025-09-11T21:55:20.505198710Z [inf]  > inmobiliaria-react-ts@1.0.0 start
+2025-09-11T21:55:20.505205131Z [inf]  > cd server && node dist/index.js
+2025-09-11T21:55:20.505211974Z [inf]  
+2025-09-11T21:55:20.712727961Z [inf]  Fallback: usando ruta /app/client/dist
+2025-09-11T21:55:20.712732145Z [inf]  Sirviendo archivos estáticos desde: /app/client/dist
+2025-09-11T21:55:20.712737805Z [err]  /app/node_modules/path-to-regexp/dist/index.js:73
+2025-09-11T21:55:20.712743397Z [err]              throw new TypeError(`Missing parameter name at ${i}: ${DEBUG_URL}`);
+2025-09-11T21:55:20.712748239Z [err]              ^
+2025-09-11T21:55:20.712753941Z [err]  
+2025-09-11T21:55:20.712762467Z [err]  TypeError: Missing parameter name at 1: https://git.new/pathToRegexpError
+2025-09-11T21:55:20.712768886Z [err]      at name (/app/node_modules/path-to-regexp/dist/index.js:73:19)
+2025-09-11T21:55:20.712774250Z [err]      at lexer (/app/node_modules/path-to-regexp/dist/index.js:91:27)
+2025-09-11T21:55:20.712779255Z [err]      at lexer.next (<anonymous>)
+2025-09-11T21:55:20.712786254Z [err]      at Iter.peek (/app/node_modules/path-to-regexp/dist/index.js:106:38)
+2025-09-11T21:55:20.712792714Z [err]      at Iter.tryConsume (/app/node_modules/path-to-regexp/dist/index.js:112:28)
+2025-09-11T21:55:20.712797980Z [err]      at Iter.text (/app/node_modules/path-to-regexp/dist/index.js:128:30)
+2025-09-11T21:55:20.712804279Z [err]      at consume (/app/node_modules/path-to-regexp/dist/index.js:152:29)
+2025-09-11T21:55:20.712808355Z [err]      at parse (/app/node_modules/path-to-regexp/dist/index.js:183:20)
+2025-09-11T21:55:20.712812108Z [err]      at /app/node_modules/path-to-regexp/dist/index.js:294:74
+2025-09-11T21:55:20.712817123Z [err]      at Array.map (<anonymous>)
+2025-09-11T21:55:20.712821152Z [err]  
+2025-09-11T21:55:20.712825865Z [err]  Node.js v18.20.8
+2025-09-11T21:55:22.290081933Z [err]  npm warn config production Use `--omit=dev` instead.
+2025-09-11T21:55:22.323018590Z [inf]  
+2025-09-11T21:55:22.323022625Z [inf]  > inmobiliaria-react-ts@1.0.0 start
+2025-09-11T21:55:22.323027015Z [inf]  > cd server && node dist/index.js
+2025-09-11T21:55:22.323032575Z [inf]  
+2025-09-11T21:55:22.522659985Z [inf]  Fallback: usando ruta /app/client/dist
+2025-09-11T21:55:22.522668123Z [inf]  Sirviendo archivos estáticos desde: /app/client/dist
+2025-09-11T21:55:22.522677072Z [err]  /app/node_modules/path-to-regexp/dist/index.js:73
+2025-09-11T21:55:22.522682834Z [err]              throw new TypeError(`Missing parameter name at ${i}: ${DEBUG_URL}`);
+2025-09-11T21:55:22.522694861Z [err]              ^
+2025-09-11T21:55:22.522699870Z [err]  
+2025-09-11T21:55:22.522705784Z [err]  TypeError: Missing parameter name at 1: https://git.new/pathToRegexpError
+2025-09-11T21:55:22.522715376Z [err]      at name (/app/node_modules/path-to-regexp/dist/index.js:73:19)
+2025-09-11T21:55:22.522720289Z [err]      at lexer (/app/node_modules/path-to-regexp/dist/index.js:91:27)
+2025-09-11T21:55:22.522724839Z [err]      at lexer.next (<anonymous>)
+2025-09-11T21:55:22.522728928Z [err]      at Iter.peek (/app/node_modules/path-to-regexp/dist/index.js:106:38)
+2025-09-11T21:55:22.522733299Z [err]      at Iter.tryConsume (/app/node_modules/path-to-regexp/dist/index.js:112:28)
+2025-09-11T21:55:22.522737764Z [err]      at Iter.text (/app/node_modules/path-to-regexp/dist/index.js:128:30)
+2025-09-11T21:55:22.522742067Z [err]      at consume (/app/node_modules/path-to-regexp/dist/index.js:152:29)
+2025-09-11T21:55:22.522747079Z [err]      at parse (/app/node_modules/path-to-regexp/dist/index.js:183:20)
+2025-09-11T21:55:22.522751432Z [err]      at /app/node_modules/path-to-regexp/dist/index.js:294:74
+2025-09-11T21:55:22.522757044Z [err]      at Array.map (<anonymous>)
+2025-09-11T21:55:22.522762572Z [err]  
+2025-09-11T21:55:22.522766862Z [err]  Node.js v18.20.8
+2025-09-11T21:55:23.657960793Z [err]  npm warn config production Use `--omit=dev` instead.
+2025-09-11T21:55:23.685959555Z [inf]  
+2025-09-11T21:55:23.685964460Z [inf]  > inmobiliaria-react-ts@1.0.0 start
+2025-09-11T21:55:23.685968780Z [inf]  > cd server && node dist/index.js
+2025-09-11T21:55:23.685972863Z [inf]  
+2025-09-11T21:55:23.880136431Z [inf]  Fallback: usando ruta /app/client/dist
+2025-09-11T21:55:23.880140983Z [inf]  Sirviendo archivos estáticos desde: /app/client/dist
+2025-09-11T21:55:23.884122034Z [err]  /app/node_modules/path-to-regexp/dist/index.js:73
+2025-09-11T21:55:23.884129551Z [err]              throw new TypeError(`Missing parameter name at ${i}: ${DEBUG_URL}`);
+2025-09-11T21:55:23.884135357Z [err]              ^
+2025-09-11T21:55:23.884140209Z [err]  
+2025-09-11T21:55:23.884146054Z [err]  TypeError: Missing parameter name at 1: https://git.new/pathToRegexpError
+2025-09-11T21:55:23.884150948Z [err]      at name (/app/node_modules/path-to-regexp/dist/index.js:73:19)
+2025-09-11T21:55:23.884156330Z [err]      at lexer (/app/node_modules/path-to-regexp/dist/index.js:91:27)
+2025-09-11T21:55:23.884160323Z [err]      at lexer.next (<anonymous>)
+2025-09-11T21:55:23.884166399Z [err]      at Iter.peek (/app/node_modules/path-to-regexp/dist/index.js:106:38)
+2025-09-11T21:55:23.884172038Z [err]      at Iter.tryConsume (/app/node_modules/path-to-regexp/dist/index.js:112:28)
+2025-09-11T21:55:23.884176950Z [err]      at Iter.text (/app/node_modules/path-to-regexp/dist/index.js:128:30)
+2025-09-11T21:55:23.884181861Z [err]      at consume (/app/node_modules/path-to-regexp/dist/index.js:152:29)
+2025-09-11T21:55:23.884186157Z [err]      at parse (/app/node_modules/path-to-regexp/dist/index.js:183:20)
+2025-09-11T21:55:23.884190506Z [err]      at /app/node_modules/path-to-regexp/dist/index.js:294:74
+2025-09-11T21:55:23.884194318Z [err]      at Array.map (<anonymous>)
+2025-09-11T21:55:23.884197992Z [err]  
+2025-09-11T21:55:23.884202786Z [err]  Node.js v18.20.8
+2025-09-11T21:55:25.215021326Z [err]  npm warn config production Use `--omit=dev` instead.
+2025-09-11T21:55:25.255431671Z [inf]  
+2025-09-11T21:55:25.255439739Z [inf]  > inmobiliaria-react-ts@1.0.0 start
+2025-09-11T21:55:25.255444563Z [inf]  > cd server && node dist/index.js
+2025-09-11T21:55:25.255448912Z [inf]  
+2025-09-11T21:55:25.458209636Z [inf]  Fallback: usando ruta /app/client/dist
+2025-09-11T21:55:25.458220436Z [inf]  Sirviendo archivos estáticos desde: /app/client/dist
+2025-09-11T21:55:25.462207294Z [err]  /app/node_modules/path-to-regexp/dist/index.js:73
+2025-09-11T21:55:25.462215479Z [err]              throw new TypeError(`Missing parameter name at ${i}: ${DEBUG_URL}`);
+2025-09-11T21:55:25.462221434Z [err]              ^
+2025-09-11T21:55:25.462231226Z [err]  
+2025-09-11T21:55:25.462236606Z [err]  TypeError: Missing parameter name at 1: https://git.new/pathToRegexpError
+2025-09-11T21:55:25.462242530Z [err]      at name (/app/node_modules/path-to-regexp/dist/index.js:73:19)
+2025-09-11T21:55:25.462247943Z [err]      at lexer (/app/node_modules/path-to-regexp/dist/index.js:91:27)
+2025-09-11T21:55:25.462254031Z [err]      at lexer.next (<anonymous>)
+2025-09-11T21:55:25.462260095Z [err]      at Iter.peek (/app/node_modules/path-to-regexp/dist/index.js:106:38)
+2025-09-11T21:55:25.462266203Z [err]      at Iter.tryConsume (/app/node_modules/path-to-regexp/dist/index.js:112:28)
+2025-09-11T21:55:25.462271555Z [err]      at Iter.text (/app/node_modules/path-to-regexp/dist/index.js:128:30)
+2025-09-11T21:55:25.462277076Z [err]      at consume (/app/node_modules/path-to-regexp/dist/index.js:152:29)
+2025-09-11T21:55:25.462282664Z [err]      at parse (/app/node_modules/path-to-regexp/dist/index.js:183:20)
+2025-09-11T21:55:25.462288648Z [err]      at /app/node_modules/path-to-regexp/dist/index.js:294:74
+2025-09-11T21:55:25.462294688Z [err]      at Array.map (<anonymous>)
+2025-09-11T21:55:25.462300208Z [err]  
+2025-09-11T21:55:25.462306586Z [err]  Node.js v18.20.8
+2025-09-11T21:55:26.523528204Z [err]  npm warn config production Use `--omit=dev` instead.
+2025-09-11T21:55:26.563677164Z [inf]  
+2025-09-11T21:55:26.563689571Z [inf]  > inmobiliaria-react-ts@1.0.0 start
+2025-09-11T21:55:26.563701276Z [inf]  > cd server && node dist/index.js
+2025-09-11T21:55:26.563711516Z [inf]  
+2025-09-11T21:55:26.756300302Z [inf]  Fallback: usando ruta /app/client/dist
+2025-09-11T21:55:26.756303934Z [inf]  Sirviendo archivos estáticos desde: /app/client/dist
+2025-09-11T21:55:26.756307974Z [err]  /app/node_modules/path-to-regexp/dist/index.js:73
+2025-09-11T21:55:26.756312377Z [err]              throw new TypeError(`Missing parameter name at ${i}: ${DEBUG_URL}`);
+2025-09-11T21:55:26.756316425Z [err]              ^
+2025-09-11T21:55:26.756320924Z [err]  
+2025-09-11T21:55:26.756324833Z [err]  TypeError: Missing parameter name at 1: https://git.new/pathToRegexpError
+2025-09-11T21:55:26.756328853Z [err]      at name (/app/node_modules/path-to-regexp/dist/index.js:73:19)
+2025-09-11T21:55:26.756334036Z [err]      at lexer (/app/node_modules/path-to-regexp/dist/index.js:91:27)
+2025-09-11T21:55:26.756337913Z [err]      at lexer.next (<anonymous>)
+2025-09-11T21:55:26.756342433Z [err]      at Iter.peek (/app/node_modules/path-to-regexp/dist/index.js:106:38)
+2025-09-11T21:55:26.756346673Z [err]      at Iter.tryConsume (/app/node_modules/path-to-regexp/dist/index.js:112:28)
+2025-09-11T21:55:26.756350375Z [err]      at Iter.text (/app/node_modules/path-to-regexp/dist/index.js:128:30)
+2025-09-11T21:55:26.756354071Z [err]      at consume (/app/node_modules/path-to-regexp/dist/index.js:152:29)
+2025-09-11T21:55:26.756359080Z [err]      at parse (/app/node_modules/path-to-regexp/dist/index.js:183:20)
+2025-09-11T21:55:26.756362870Z [err]      at /app/node_modules/path-to-regexp/dist/index.js:294:74
+2025-09-11T21:55:26.756367072Z [err]      at Array.map (<anonymous>)
+2025-09-11T21:55:26.756370730Z [err]  
+2025-09-11T21:55:26.756374551Z [err]  Node.js v18.20.8
+2025-09-11T21:55:27.896546359Z [err]  npm warn config production Use `--omit=dev` instead.
+2025-09-11T21:55:27.970420283Z [inf]  
+2025-09-11T21:55:27.970426110Z [inf]  > inmobiliaria-react-ts@1.0.0 start
+2025-09-11T21:55:27.970430571Z [inf]  > cd server && node dist/index.js
+2025-09-11T21:55:27.970434866Z [inf]  
+2025-09-11T21:55:28.178934536Z [inf]  Fallback: usando ruta /app/client/dist
+2025-09-11T21:55:28.178941192Z [inf]  Sirviendo archivos estáticos desde: /app/client/dist
+2025-09-11T21:55:28.178947638Z [err]  /app/node_modules/path-to-regexp/dist/index.js:73
+2025-09-11T21:55:28.178953736Z [err]              throw new TypeError(`Missing parameter name at ${i}: ${DEBUG_URL}`);
+2025-09-11T21:55:28.178961414Z [err]              ^
+2025-09-11T21:55:28.178968986Z [err]  
+2025-09-11T21:55:28.178975278Z [err]  TypeError: Missing parameter name at 1: https://git.new/pathToRegexpError
+2025-09-11T21:55:28.178981490Z [err]      at name (/app/node_modules/path-to-regexp/dist/index.js:73:19)
+2025-09-11T21:55:28.178987977Z [err]      at lexer (/app/node_modules/path-to-regexp/dist/index.js:91:27)
+2025-09-11T21:55:28.178994444Z [err]      at lexer.next (<anonymous>)
+2025-09-11T21:55:28.179000403Z [err]      at Iter.peek (/app/node_modules/path-to-regexp/dist/index.js:106:38)
+2025-09-11T21:55:28.179006655Z [err]      at Iter.tryConsume (/app/node_modules/path-to-regexp/dist/index.js:112:28)
+2025-09-11T21:55:28.179012581Z [err]      at Iter.text (/app/node_modules/path-to-regexp/dist/index.js:128:30)
+2025-09-11T21:55:28.179018414Z [err]      at consume (/app/node_modules/path-to-regexp/dist/index.js:152:29)
+2025-09-11T21:55:28.179024736Z [err]      at parse (/app/node_modules/path-to-regexp/dist/index.js:183:20)
+2025-09-11T21:55:28.179030991Z [err]      at /app/node_modules/path-to-regexp/dist/index.js:294:74
+2025-09-11T21:55:28.179037026Z [err]      at Array.map (<anonymous>)
+2025-09-11T21:55:28.179043632Z [err]  
+2025-09-11T21:55:28.179049995Z [err]  Node.js v18.20.8
+2025-09-11T21:55:29.508306208Z [err]  npm warn config production Use `--omit=dev` instead.
+2025-09-11T21:55:29.555892177Z [inf]  
+2025-09-11T21:55:29.555902491Z [inf]  > inmobiliaria-react-ts@1.0.0 start
+2025-09-11T21:55:29.555909557Z [inf]  > cd server && node dist/index.js
+2025-09-11T21:55:29.555917971Z [inf]  
+2025-09-11T21:55:29.819247053Z [inf]  Fallback: usando ruta /app/client/dist
+2025-09-11T21:55:29.819254621Z [inf]  Sirviendo archivos estáticos desde: /app/client/dist
+2025-09-11T21:55:29.819261919Z [err]  /app/node_modules/path-to-regexp/dist/index.js:73
+2025-09-11T21:55:29.819269447Z [err]              throw new TypeError(`Missing parameter name at ${i}: ${DEBUG_URL}`);
+2025-09-11T21:55:29.819278128Z [err]              ^
+2025-09-11T21:55:29.819286254Z [err]  
+2025-09-11T21:55:29.819295721Z [err]  TypeError: Missing parameter name at 1: https://git.new/pathToRegexpError
+2025-09-11T21:55:29.819303492Z [err]      at name (/app/node_modules/path-to-regexp/dist/index.js:73:19)
+2025-09-11T21:55:29.819311314Z [err]      at lexer (/app/node_modules/path-to-regexp/dist/index.js:91:27)
+2025-09-11T21:55:29.819318751Z [err]      at lexer.next (<anonymous>)
+2025-09-11T21:55:29.819325344Z [err]      at Iter.peek (/app/node_modules/path-to-regexp/dist/index.js:106:38)
+2025-09-11T21:55:29.819331601Z [err]      at Iter.tryConsume (/app/node_modules/path-to-regexp/dist/index.js:112:28)
+2025-09-11T21:55:29.819337826Z [err]      at Iter.text (/app/node_modules/path-to-regexp/dist/index.js:128:30)
+2025-09-11T21:55:29.819345136Z [err]      at consume (/app/node_modules/path-to-regexp/dist/index.js:152:29)
+2025-09-11T21:55:29.819351915Z [err]      at parse (/app/node_modules/path-to-regexp/dist/index.js:183:20)
+2025-09-11T21:55:29.819358081Z [err]      at /app/node_modules/path-to-regexp/dist/index.js:294:74
+2025-09-11T21:55:29.819364246Z [err]      at Array.map (<anonymous>)
+2025-09-11T21:55:29.819373421Z [err]  
+2025-09-11T21:55:29.819381370Z [err]  Node.js v18.20.8
+2025-09-11T21:55:31.317906001Z [err]  npm warn config production Use `--omit=dev` instead.
+2025-09-11T21:55:31.362068489Z [inf]  
+2025-09-11T21:55:31.362081936Z [inf]  > inmobiliaria-react-ts@1.0.0 start
+2025-09-11T21:55:31.362089829Z [inf]  > cd server && node dist/index.js
+2025-09-11T21:55:31.362097953Z [inf]  
+2025-09-11T21:55:31.605734421Z [inf]  Fallback: usando ruta /app/client/dist
+2025-09-11T21:55:31.605745921Z [inf]  Sirviendo archivos estáticos desde: /app/client/dist
+2025-09-11T21:55:31.605753861Z [err]  /app/node_modules/path-to-regexp/dist/index.js:73
+2025-09-11T21:55:31.605760940Z [err]              throw new TypeError(`Missing parameter name at ${i}: ${DEBUG_URL}`);
+2025-09-11T21:55:31.605768015Z [err]              ^
+2025-09-11T21:55:31.605778716Z [err]  
+2025-09-11T21:55:31.605786575Z [err]  TypeError: Missing parameter name at 1: https://git.new/pathToRegexpError
+2025-09-11T21:55:31.605796475Z [err]      at name (/app/node_modules/path-to-regexp/dist/index.js:73:19)
+2025-09-11T21:55:31.605804351Z [err]      at lexer (/app/node_modules/path-to-regexp/dist/index.js:91:27)
+2025-09-11T21:55:31.605810320Z [err]      at lexer.next (<anonymous>)
+2025-09-11T21:55:31.605818864Z [err]      at Iter.peek (/app/node_modules/path-to-regexp/dist/index.js:106:38)
+2025-09-11T21:55:31.605825800Z [err]      at Iter.tryConsume (/app/node_modules/path-to-regexp/dist/index.js:112:28)
+2025-09-11T21:55:31.605833187Z [err]      at Iter.text (/app/node_modules/path-to-regexp/dist/index.js:128:30)
+2025-09-11T21:55:31.605839412Z [err]      at consume (/app/node_modules/path-to-regexp/dist/index.js:152:29)
+2025-09-11T21:55:31.605845124Z [err]      at parse (/app/node_modules/path-to-regexp/dist/index.js:183:20)
+2025-09-11T21:55:31.605851951Z [err]      at /app/node_modules/path-to-regexp/dist/index.js:294:74
+2025-09-11T21:55:31.605859067Z [err]      at Array.map (<anonymous>)
+2025-09-11T21:55:31.605866226Z [err]  
+2025-09-11T21:55:31.605873225Z [err]  Node.js v18.20.8
+2025-09-11T21:55:33.044243541Z [err]  npm warn config production Use `--omit=dev` instead.
+2025-09-11T21:55:33.080883391Z [inf]  
+2025-09-11T21:55:33.080890508Z [inf]  > inmobiliaria-react-ts@1.0.0 start
+2025-09-11T21:55:33.080898469Z [inf]  > cd server && node dist/index.js
+2025-09-11T21:55:33.080905449Z [inf]  
+2025-09-11T21:55:33.316339601Z [inf]  Fallback: usando ruta /app/client/dist
+2025-09-11T21:55:33.316353052Z [inf]  Sirviendo archivos estáticos desde: /app/client/dist
+2025-09-11T21:55:33.316362150Z [err]  /app/node_modules/path-to-regexp/dist/index.js:73
+2025-09-11T21:55:33.316371776Z [err]              throw new TypeError(`Missing parameter name at ${i}: ${DEBUG_URL}`);
+2025-09-11T21:55:33.316395434Z [err]              ^
+2025-09-11T21:55:33.316408374Z [err]  
+2025-09-11T21:55:33.316416673Z [err]  TypeError: Missing parameter name at 1: https://git.new/pathToRegexpError
+2025-09-11T21:55:33.316426193Z [err]      at name (/app/node_modules/path-to-regexp/dist/index.js:73:19)
+2025-09-11T21:55:33.316435310Z [err]      at lexer (/app/node_modules/path-to-regexp/dist/index.js:91:27)
+2025-09-11T21:55:33.316444005Z [err]      at lexer.next (<anonymous>)
+2025-09-11T21:55:33.316452217Z [err]      at Iter.peek (/app/node_modules/path-to-regexp/dist/index.js:106:38)
+2025-09-11T21:55:33.316460215Z [err]      at Iter.tryConsume (/app/node_modules/path-to-regexp/dist/index.js:112:28)
+2025-09-11T21:55:33.316467598Z [err]      at Iter.text (/app/node_modules/path-to-regexp/dist/index.js:128:30)
+2025-09-11T21:55:33.316478241Z [err]      at consume (/app/node_modules/path-to-regexp/dist/index.js:152:29)
+2025-09-11T21:55:33.316487951Z [err]      at parse (/app/node_modules/path-to-regexp/dist/index.js:183:20)
+2025-09-11T21:55:33.316496766Z [err]      at /app/node_modules/path-to-regexp/dist/index.js:294:74
+2025-09-11T21:55:33.316506523Z [err]      at Array.map (<anonymous>)
+2025-09-11T21:55:33.316515782Z [err]  
+2025-09-11T21:55:33.316525483Z [err]  Node.js v18.20.8

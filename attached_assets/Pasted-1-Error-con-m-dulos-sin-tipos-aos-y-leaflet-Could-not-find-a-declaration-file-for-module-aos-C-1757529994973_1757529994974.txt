@@ -1,0 +1,90 @@
+1️⃣ Error con módulos sin tipos (aos y leaflet)
+Could not find a declaration file for module 'aos'
+Could not find a declaration file for module 'leaflet'
+
+
+Solución:
+
+Instalá los tipos correspondientes si existen:
+
+npm install --save-dev @types/aos @types/leaflet
+
+
+Si un paquete no tiene tipos oficiales (@types/...), podés crear un archivo declarations.d.ts en src o en la raíz del frontend con:
+
+declare module 'aos';
+declare module 'leaflet';
+
+
+Esto le dice a TypeScript que acepte esos módulos como any y deje compilar.
+
+2️⃣ Error con ReactNode y verbatimModuleSyntax
+'ReactNode' is a type and must be imported using a type-only import
+
+
+Esto ocurre porque estás usando TypeScript 5+ y verbatimModuleSyntax activado.
+Solución: Cambiá la importación en ProtectedRoute.tsx:
+
+// Antes
+import { ReactNode } from 'react';
+
+// Después
+import type { ReactNode } from 'react';
+
+
+Esto indica que ReactNode es solo un tipo, no un valor.
+
+3️⃣ Errores de leaflet en props (center, icon)
+Property 'center' does not exist on type 'MapContainerProps'
+Property 'icon' does not exist on type 'MarkerProps'
+
+
+Esto pasa porque la versión de react-leaflet cambió la forma de tipar las props.
+Soluciones posibles:
+
+Verificá que estás importando MapContainer y Marker desde react-leaflet y no desde leaflet directamente.
+
+Asegurate de instalar versiones compatibles de leaflet y @types/leaflet:
+
+npm install leaflet react-leaflet
+npm install --save-dev @types/leaflet
+
+
+Chequeá que tus props coincidan con react-leaflet:
+
+import { MapContainer, TileLayer, Marker } from 'react-leaflet';
+import L from 'leaflet';
+
+<MapContainer center={[lat, lng]} zoom={13} style={{ width: '100%', height: '400px' }}>
+  <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+  <Marker position={[lat, lng]} icon={L.icon({ /* config */ })} />
+</MapContainer>
+
+
+Si TypeScript sigue quejándose, podés hacer un cast temporal:
+
+<Marker position={[lat, lng]} icon={customIcon as any} />
+
+4️⃣ Checklist para que Render compile correctamente
+
+Instalar todos los tipos necesarios (@types/...) o declarar módulos que no los tengan.
+
+Revisar imports de tipos (import type ...) donde TypeScript lo pide.
+
+Asegurar que tsconfig.json tenga:
+
+{
+  "compilerOptions": {
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true
+  }
+}
+
+
+skipLibCheck: true ayuda a ignorar errores de tipado de librerías externas (leaflet, aos, etc.) durante build.
+
+Probar build localmente antes de subir a Render:
+
+cd client
+npm run build

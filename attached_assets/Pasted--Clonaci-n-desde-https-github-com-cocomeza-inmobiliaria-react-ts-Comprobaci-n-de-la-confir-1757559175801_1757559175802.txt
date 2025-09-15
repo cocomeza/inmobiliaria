@@ -1,0 +1,79 @@
+==> Clonación desde https://github.com/cocomeza/inmobiliaria-react-ts
+==> Comprobación de la confirmación f314fd24d2b835572c9eb084d11b78d9ba126ace en la rama principal
+==> Solicitud de Node.js versión >=18
+==> Uso de Node.js versión 24.8.0 a través de /opt/render/project/src/package.json
+==> Documentos sobre la especificación de una versión Node.js: https://render.com/docs/node-version
+==> Ejecutando el comando build 'npm install;  npm ejecutar compilación'...
+Se agregaron 297 paquetes y se auditaron 300 paquetes en 10 segundos
+32 paquetes están buscando financiación
+  Ejecute 'NPM Fund' para obtener más detalles
+1 vulnerabilidad de baja gravedad
+Para solucionar todos los problemas, ejecute:
+  corrección de auditoría de npm
+Ejecute 'npm audit' para obtener más detalles.
+> compilación inmobiliaria-react-ts@1.0.0
+> npm run build:client && npm run build:server
+> inmobiliaria-react-ts@1.0.0 build:client
+> npm run build --prefix client
+Compilación > client@0.0.0
+> compilación de Vite
+Vite v7.1.3 Construcción para producción...
+transformante...
+✓ 476 módulos transformados.
+Renderizado de fragmentos...
+Calculando el tamaño de gzip ...
+dist/index.html 0,46 kB │ gzip: 0,30 kB
+dist/assets/index-DRORA7io.css 277,15 kB │ gzip: 41,21 kB
+dist/assets/package-aBYktcue.js 1,66 kB │ gzip: 0,63 kB
+dist/assets/index-DFop7grq.js 411.21 kB │ gzip: 130.59 kB
+✓ Construido en 2.44s
+> inmobiliaria-react-ts@1.0.0 build:server
+> npm run build --prefix server
+Compilación > server@1.0.0
+> tsc -p tsconfig.json
+==> Cargando la compilación...
+==> Subido en 5.7s.  La compresión tardó 8,4 segundos
+==> Construir con éxito 🎉
+==> Implementar...
+==> Ejecutando 'npm run start'
+> inmobiliaria-react-ts@1.0.0 start
+> servidor de cd y nodo dist/index.js
+Fallback: usando ruta /opt/render/project/src/client/dist
+Sirviendo archivos estáticos desde: /opt/render/project/src/client/dist
+/opt/render/project/src/node_modules/path-to-regexp/dist/index.js:73
+  throw new TypeError('Falta el nombre del parámetro en ${i}: ${DEBUG_URL}');
+            ^
+TypeError: Falta el nombre del parámetro en 1: https://git.new/pathToRegexpError
+  en el nombre (/opt/render/project/src/node_modules/path-to-regexp/dist/index.js:73:19)
+  en lexer (/opt/render/project/src/node_modules/path-to-regexp/dist/index.js:91:27)
+  en lexer.next (<anónimo>)
+  en Iter.peek (/opt/render/project/src/node_modules/path-to-regexp/dist/index.js:106:38)
+  en Iter.tryConsume (/opt/render/project/src/node_modules/path-to-regexp/dist/index.js:112:28)
+  en Iter.text (/opt/render/project/src/node_modules/path-to-regexp/dist/index.js:128:30)
+  en el consumo (/opt/render/project/src/node_modules/path-to-regexp/dist/index.js:152:29)
+  en parse (/opt/render/project/src/node_modules/path-to-regexp/dist/index.js:183:20)
+  en /opt/render/project/src/node_modules/path-to-regexp/dist/index.js:294:74
+  en Array.map (<anónimo>)
+Node.js v24.8.0
+==> Salió con el estado 1
+==> Formas comunes de solucionar problemas de implementación: https://render.com/docs/troubleshooting-deploys
+==> Ejecutando 'npm run start'
+> inmobiliaria-react-ts@1.0.0 start
+> servidor de cd y nodo dist/index.js
+Fallback: usando ruta /opt/render/project/src/client/dist
+Sirviendo archivos estáticos desde: /opt/render/project/src/client/dist
+/opt/render/project/src/node_modules/path-to-regexp/dist/index.js:73
+  throw new TypeError('Falta el nombre del parámetro en ${i}: ${DEBUG_URL}');
+            ^
+TypeError: Falta el nombre del parámetro en 1: https://git.new/pathToRegexpError
+  en el nombre (/opt/render/project/src/node_modules/path-to-regexp/dist/index.js:73:19)
+  en lexer (/opt/render/project/src/node_modules/path-to-regexp/dist/index.js:91:27)
+  en lexer.next (<anónimo>)
+  en Iter.peek (/opt/render/project/src/node_modules/path-to-regexp/dist/index.js:106:38)
+  en Iter.tryConsume (/opt/render/project/src/node_modules/path-to-regexp/dist/index.js:112:28)
+  en Iter.text (/opt/render/project/src/node_modules/path-to-regexp/dist/index.js:128:30)
+  en el consumo (/opt/render/project/src/node_modules/path-to-regexp/dist/index.js:152:29)
+  en parse (/opt/render/project/src/node_modules/path-to-regexp/dist/index.js:183:20)
+  en /opt/render/project/src/node_modules/path-to-regexp/dist/index.js:294:74
+  en Array.map (<anónimo>)
+Node.js v24.8.0

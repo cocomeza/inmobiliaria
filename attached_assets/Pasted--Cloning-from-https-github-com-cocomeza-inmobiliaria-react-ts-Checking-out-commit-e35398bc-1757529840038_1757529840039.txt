@@ -1,0 +1,29 @@
+==> Cloning from https://github.com/cocomeza/inmobiliaria-react-ts
+==> Checking out commit e35398bcd6009953e07a6dfe9fdc348a5e6c6284 in branch main
+==> Using Node.js version 22.16.0 (default)
+==> Docs on specifying a Node.js version: https://render.com/docs/node-version
+==> Running build command 'npm install && npm run build'...
+added 259 packages, and audited 260 packages in 5s
+38 packages are looking for funding
+  run `npm fund` for details
+1 low severity vulnerability
+To address all issues, run:
+  npm audit fix
+Run `npm audit` for details.
+> workspace@1.0.0 build
+> npm run build:client && npm run build:server
+> workspace@1.0.0 build:client
+> npm run build --prefix client
+> client@0.0.0 build
+> tsc -b && vite build
+src/App.tsx(5,17): error TS7016: Could not find a declaration file for module 'aos'. '/opt/render/project/src/node_modules/aos/dist/aos.js' implicitly has an 'any' type.
+  Try `npm i --save-dev @types/aos` if it exists or add a new declaration (.d.ts) file containing `declare module 'aos';`
+src/components/ProtectedRoute.tsx(1,10): error TS1484: 'ReactNode' is a type and must be imported using a type-only import when 'verbatimModuleSyntax' is enabled.
+src/pages/PropertyDetail.tsx(7,15): error TS7016: Could not find a declaration file for module 'leaflet'. '/opt/render/project/src/node_modules/leaflet/dist/leaflet-src.js' implicitly has an 'any' type.
+  Try `npm i --save-dev @types/leaflet` if it exists or add a new declaration (.d.ts) file containing `declare module 'leaflet';`
+src/pages/PropertyDetail.tsx(84,27): error TS2322: Type '{ children: Element[]; center: number[]; zoom: number; style: { width: string; height: string; }; }' is not assignable to type 'IntrinsicAttributes & MapContainerProps & RefAttributes<LeafletMap>'.
+  Property 'center' does not exist on type 'IntrinsicAttributes & MapContainerProps & RefAttributes<LeafletMap>'.
+src/pages/PropertyDetail.tsx(86,53): error TS2322: Type '{ children: Element; position: number[]; icon: any; }' is not assignable to type 'IntrinsicAttributes & MarkerProps & RefAttributes<LeafletMarker<any>>'.
+  Property 'icon' does not exist on type 'IntrinsicAttributes & MarkerProps & RefAttributes<LeafletMarker<any>>'.
+==> Build failed 😞
+==> Common ways to troubleshoot your deploy: https://render.com/docs/troubleshooting-deploys

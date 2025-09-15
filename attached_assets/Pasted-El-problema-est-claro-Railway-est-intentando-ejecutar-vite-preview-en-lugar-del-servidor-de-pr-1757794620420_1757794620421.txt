@@ -1,0 +1,70 @@
+El problema está claro! 🎯 Railway está intentando ejecutar vite preview en lugar del servidor de producción correcto.
+El problema:
+Railway está ejecutando el comando preview de Vite (que es para desarrollo) en lugar de tu servidor Express de producción.
+Solución:
+1. Verifica tu script de start en el package.json raíz
+Tu script actual:
+json"start": "cd server && node dist/index.js"
+Esto está bien, pero Railway podría estar ejecutando otro comando.
+2. Configura Railway correctamente
+En Railway, ve a Settings → Deploy y asegúrate de que:
+Start Command:
+bashnpm run start
+Build Command:
+bashnpm run build
+3. Verifica que el servidor se compile
+Asegúrate de que el comando npm run build:server funcione y genere el archivo server/dist/index.js
+4. Configura el puerto correctamente
+En tu servidor Express, asegúrate de usar:
+typescriptconst PORT = process.env.PORT || 8080;
+app.listen(PORT, '0.0.0.0', () => {
+  console.log(`❤️ Servidor activo en puerto ${PORT}`);
+});
+5. Variables de Railway
+Asegúrate de tener configurada:
+PORT=8080
+NODE_ENV=production
+Quick fix:
+
+Ve a Railway → Settings → Deploy
+Cambia el Start Command a: npm run start
+Redeploy
+
+¿Puedes verificar qué comando está configurado como "Start Command" en Railway?
+Con esto debería ejecutar tu servidor Express en lugar de vite preview 🚀ReintentarClaude aún no tiene la capacidad de ejecutar el código que genera.MStopping Container
+npm error path /app
+npm error command failed
+npm error signal SIGTERM
+npm error command sh -c vite preview --host 0.0.0.0 --port 8080
+npm error A complete log of this run can be found in: /root/.npm/_logs/2025-09-13T18_47_24_944Z-debug-0.logEditar¡Railway está ejecutando el comando equivocado! Está corriendo vite preview cuando debería ejecutar tu servidor Express.
+Solución inmediata:
+1. Configura Railway manualmente
+Ve a tu proyecto en Railway → Settings → Deploy:
+
+Build Command: npm run build
+Start Command: npm run start
+Root Directory: / (o déjalo vacío)
+
+2. Si no funciona, crea un Procfile
+En la raíz de tu proyecto, crea un archivo llamado Procfile (sin extensión):
+web: npm run start
+3. Alternativa: Railway.json
+También puedes crear un railway.json en la raíz:
+json{
+  "$schema": "https://railway.app/railway.schema.json",
+  "build": {
+    "builder": "nixpacks",
+    "buildCommand": "npm run build"
+  },
+  "deploy": {
+    "startCommand": "npm run start",
+    "restartPolicyType": "always"
+  }
+}
+4. Verifica el package.json raíz
+Confirma que tu script start esté bien:
+json{
+  "scripts": {
+    "start": "cd server && node dist/index.js"
+  }
+}

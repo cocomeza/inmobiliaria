@@ -1,0 +1,91 @@
+Filter and search logs
+
+Last 15 min
+
+
+You reached the start of the range
+Sep 13, 2025, 3:25 PM
+Starting Container
+npm warn config production Use `--omit=dev` instead.
+> inmobiliaria-react-ts@1.0.0 start
+> cd server && node dist/index.js
+🔧 Cargando variables de entorno desde: /.env
+[dotenv@17.2.2] injecting env (0) from ../../.env -- tip: 📡 auto-backup env with Radar: https://dotenvx.com/radar
+🔧 Intentando cargar desde workspace: /app/server/.env
+[dotenv@17.2.2] injecting env (0) from .env -- tip: ⚙️  write to custom object with { processEnv: myObject }
+✅ Variables disponibles: { MONGO_URI: true, JWT_SECRET: true }
+Conectando a MongoDB...
+🚀 API escuchando en http://0.0.0.0:8080
+📊 Entorno: production
+💾 Base de datos: MongoDB Atlas
+🔌 Mongoose conectado a MongoDB
+✅ Conexión a MongoDB establecida correctamente
+📊 Base de datos: inmobiliaria
+🌱 Iniciando seed de base de datos...
+👤 Usuario administrador ya existe
+🏠 Ya existen 4 propiedades en la base de datos
+🌱 Seed completado correctamente
+Stopping Container
+npm error path /app
+npm error command failed
+npm error signal SIGTERM
+npm error command sh -c cd server && node dist/index.js
+npm error A complete log of this run can be found in: /root/.npm/_logs/2025-09-13T17_31_36_418Z-debug-0.log
+Starting Container
+npm warn config production Use `--omit=dev` instead.
+> inmobiliaria-react-ts@1.0.0 start
+> cd server && node dist/index.js
+🚀 Producción: usando variables de entorno de Railway
+✅ Variables disponibles: { MONGO_URI: true, JWT_SECRET: true }
+Conectando a MongoDB...
+🚀 API escuchando en http://0.0.0.0:8080
+📊 Entorno: production
+💾 Base de datos: MongoDB Atlas
+🔌 Mongoose conectado a MongoDB
+✅ Conexión a MongoDB establecida correctamente
+📊 Base de datos: inmobiliaria
+🌱 Iniciando seed de base de datos...
+Stopping Container
+👤 Usuario administrador ya existe
+🏠 Ya existen 4 propiedades en la base de datos
+🌱 Seed completado correctamente
+npm error path /app
+npm error command failed
+npm error signal SIGTERM
+npm error command sh -c cd server && node dist/index.js
+npm error A complete log of this run can be found in: /root/.npm/_logs/2025-09-13T18_32_21_852Z-debug-0.log
+Starting Container
+npm warn config production Use `--omit=dev` instead.
+> inmobiliaria-react-ts@1.0.0 start
+> cd server && node dist/index.js
+🚀 Producción: usando variables de entorno de Railway
+✅ Variables disponibles: { MONGO_URI: true, JWT_SECRET: true }
+Conectando a MongoDB...
+🚀 API escuchando en http://0.0.0.0:8080
+📊 Entorno: production
+💾 Base de datos: MongoDB Atlas
+🔌 Mongoose conectado a MongoDB
+✅ Conexión a MongoDB establecida correctamente
+📊 Base de datos: inmobiliaria
+🌱 Iniciando seed de base de datos...
+Stopping Container
+👤 Usuario administrador ya existe
+🏠 Ya existen 4 propiedades en la base de datos
+🌱 Seed completado correctamente
+npm error path /app
+npm error command failed
+npm error signal SIGTERM
+npm error command sh -c cd server && node dist/index.js
+npm error A complete log of this run can be found in: /root/.npm/_logs/2025-09-13T18_36_29_278Z-debug-0.log
+Starting Container
+npm warn config production Use `--omit=dev` instead.
+> client@0.0.0 preview
+> vite preview --host 0.0.0.0 --port 8080
+  ➜  Local:   http://localhost:8080/
+  ➜  Network: http://10.250.18.5:8080/
+Stopping Container
+npm error path /app
+npm error command failed
+npm error signal SIGTERM
+npm error command sh -c vite preview --host 0.0.0.0 --port 8080
+npm error A complete log of this run can be found in: /root/.npm/_logs/2025-09-13T17_32_30_013Z-debug-0.log

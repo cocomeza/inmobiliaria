@@ -1,0 +1,20 @@
+services:
+  - type: web
+    name: inmobiliaria-backend
+    env: node
+    plan: starter
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        sync: false
+      - key: JWT_SECRET  
+        generateValue: true
+      # ADMIN_USERNAME and ADMIN_PASSWORD should be set manually in Railway dashboard
+      # for security - do not commit credentials to git
+      # - key: ADMIN_USERNAME
+      #   value: [SET_IN_RAILWAY_DASHBOARD]  
+      # - key: ADMIN_PASSWORD
+      #   value: [SET_IN_RAILWAY_DASHBOARD]
