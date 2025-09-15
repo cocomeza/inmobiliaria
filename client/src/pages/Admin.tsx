@@ -130,6 +130,17 @@ export default function Admin() {
 
   async function uploadImage() {
     if (!file) return
+    // Validaciones básicas antes de subir
+    const maxSize = 8 * 1024 * 1024 // 8MB
+    const allowed = ['image/jpeg', 'image/png', 'image/webp']
+    if (!allowed.includes(file.type)) {
+      setError('Formato no permitido. Solo JPG, PNG o WEBP')
+      return
+    }
+    if (file.size > maxSize) {
+      setError('La imagen supera los 8MB permitidos')
+      return
+    }
     try {
       const fd = new FormData()
       fd.append('image', file)
@@ -142,13 +153,16 @@ export default function Admin() {
         headers,
         body: fd 
       })
-      const json = (await res.json()) as { url: string }
+      const json = (await res.json()) as { url: string; thumbUrl?: string; message?: string }
+      if (!res.ok) {
+        throw new Error(json?.message || 'Error al subir imagen')
+      }
       if (editing) {
         setEditing({ ...editing, images: [...(editing.images ?? []), json.url] })
         setFile(null)
       }
     } catch (e) {
-      setError('No se pudo subir la imagen')
+      setError(e instanceof Error ? e.message : 'No se pudo subir la imagen')
     }
   }
 

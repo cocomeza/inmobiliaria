@@ -178,4 +178,13 @@ Tips:
 - En el servidor, el modelo `Property` define enums para `type` y `status` y guarda `price`.
 - Al crear/editar, el backend traduce `priceUsd` del cliente a `price` en MongoDB.
 
+## ️ Subida de imágenes en producción (Cloudinary)
+
+- Se usa Cloudinary, no el disco de Vercel (efímero). El backend sube el archivo a Cloudinary y guarda solo la URL en MongoDB.
+- Endpoint: `POST /api/upload` (requiere token admin). Acepta `FormData('image', file)`.
+- Validaciones: formatos permitidos `JPG/PNG/WEBP`, tamaño máximo `8MB`, límite de resolución y miniatura automática (400x300).
+- Variables necesarias en Vercel:
+  - `CLOUDINARY_CLOUD_NAME`
+  - `CLOUDINARY_API_KEY`
+  - `CLOUDINARY_API_SECRET`
 

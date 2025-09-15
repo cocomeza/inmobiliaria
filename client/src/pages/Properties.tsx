@@ -17,10 +17,10 @@ export default function Properties() {
       const res = await apiRequest('/api/properties')
       const raw = await res.json() as any[]
       const mapped: PropertyItem[] = (raw || []).map((p: any) => ({
-        id: p.id || p._id,
+        id: String(p.id || p._id || ''),
         title: p.title,
         description: p.description,
-        priceUsd: typeof p.priceUsd === 'number' ? p.priceUsd : Number(p.price ?? 0),
+        priceUsd: typeof p.priceUsd === 'number' ? p.priceUsd : Number(p.price ?? 0) || 0,
         images: Array.isArray(p.images) ? p.images : [],
         type: p.type,
         status: p.status,
@@ -29,7 +29,7 @@ export default function Properties() {
         bathrooms: p.bathrooms,
         featured: Boolean(p.featured)
       }))
-      return mapped
+      return mapped.filter(p => Boolean(p.id))
     }
   })
 
@@ -58,8 +58,8 @@ export default function Properties() {
             <p>No se encontraron propiedades con los filtros seleccionados.</p>
           </Col>
         ) : (
-          filtered.map((p) => (
-            <Col key={p.id} xs={12} sm={6} lg={4}>
+          filtered.map((p, idx) => (
+            <Col key={`${p.id}-${idx}`} xs={12} sm={6} lg={4}>
               <PropertyCard item={p} />
             </Col>
           ))

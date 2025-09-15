@@ -16,10 +16,10 @@ export default function Home() {
       const raw = await res.json() as any[]
       // Mapear desde el backend (price, _id) al shape del cliente (priceUsd, id)
       const mapped: PropertyItem[] = (raw || []).map((p: any) => ({
-        id: p.id || p._id,
+        id: String(p.id || p._id || ''),
         title: p.title,
         description: p.description,
-        priceUsd: typeof p.priceUsd === 'number' ? p.priceUsd : Number(p.price ?? 0),
+        priceUsd: typeof p.priceUsd === 'number' ? p.priceUsd : Number(p.price ?? 0) || 0,
         images: Array.isArray(p.images) ? p.images : [],
         type: p.type,
         status: p.status,
@@ -28,7 +28,8 @@ export default function Home() {
         bathrooms: p.bathrooms,
         featured: Boolean(p.featured)
       }))
-      return mapped
+      // Filtrar items sin id válido
+      return mapped.filter(p => Boolean(p.id))
     }
   })
 
@@ -42,8 +43,8 @@ export default function Home() {
       <Container className="py-4 py-md-5">
         <h2 className="mb-3 mb-md-4 text-center text-md-start">Propiedades destacadas</h2>
         <Row className="g-3 g-md-4">
-          {featured.map((p) => (
-            <Col key={p.id} xs={12} sm={6} lg={4}>
+          {featured.map((p, idx) => (
+            <Col key={`${p.id}-${idx}`} xs={12} sm={6} lg={4}>
               <PropertyCard item={p} />
             </Col>
           ))}

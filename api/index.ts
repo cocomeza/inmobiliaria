@@ -39,6 +39,8 @@ import { authService } from '../server/src/services/authService'
 import { seedService } from '../server/src/services/seedService'
 import { Property } from '../server/src/models/Property'
 import { User } from '../server/src/models/User'
+import multer from 'multer'
+import { v2 as cloudinary } from 'cloudinary'
 
 const app = express()
 
@@ -417,5 +419,75 @@ if (!isProduction) {
     }
   })
 }
+
+// ========================
+// SUBIDA DE IMÁGENES (Cloudinary)
+// ========================
+
+// Configurar Cloudinary con variables de entorno
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET
+})
+
+// Multer en memoria (no escribe al disco)
+const allowedMime = ['image/jpeg', 'image/png', 'image/webp']
+const upload = multer({
+  storage: multer.memoryStorage(),
+  limits: { fileSize: 8 * 1024 * 1024 }, // 8MB
+  fileFilter: (_req, file, cb) => {
+    if (!allowedMime.includes(file.mimetype)) {
+      return cb(new Error('Formato no permitido. Solo JPG, PNG o WEBP'))
+    }
+    cb(null, true)
+  }
+})
+
+app.post('/api/upload', authenticateToken, requireAdmin, upload.single('image'), async (req: any, res: Response) => {
+  try {
+    if (!req.file) {
+      return res.status(400).json({ message: 'No se recibió archivo' })
+    }
+
+    if (!process.env.CLOUDINARY_CLOUD_NAME || !process.env.CLOUDINARY_API_KEY || !process.env.CLOUDINARY_API_SECRET) {
+      return res.status(500).json({ message: 'Cloudinary no está configurado' })
+    }
+
+    // Subir a Cloudinary usando el buffer
+    const uploaded: any = await new Promise((resolve, reject) => {
+      const stream = cloudinary.uploader.upload_stream(
+        {
+          folder: 'inmobiliaria',
+          resource_type: 'image',
+          transformation: [
+            { width: 1600, height: 1200, crop: 'limit' }, // limita resolución máxima
+            { quality: 'auto:good', fetch_format: 'auto' }
+          ]
+        },
+        (error, result) => {
+          if (error) return reject(error)
+          resolve(result)
+        }
+      )
+      stream.end(req.file.buffer)
+    })
+
+    // Crear URL de miniatura (ej. 400px ancho)
+    const thumbUrl = cloudinary.url(uploaded.public_id, {
+      secure: true,
+      transformation: [{ width: 400, height: 300, crop: 'fill', gravity: 'auto' }]
+    })
+
+    // Devolver URL principal y miniatura
+    return res.json({ url: uploaded.secure_url, thumbUrl })
+  } catch (error) {
+    console.error('Error subiendo imagen a Cloudinary:', error)
+    const message = (error as Error)?.message?.includes('Formato no permitido')
+      ? 'Formato no permitido. Solo JPG, PNG o WEBP'
+      : 'Error subiendo imagen'
+    return res.status(400).json({ message })
+  }
+})
 
 export default app

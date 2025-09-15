@@ -8,16 +8,32 @@ import type { PropertyItem } from '../components/PropertyCard'
 
 export default function PropertyDetail() {
   const [, params] = useRoute('/propiedad/:id')
-  
-  // Usar API para obtener propiedades actualizadas
+  // Los hooks deben declararse antes de cualquier return condicional
+  const [active, setActive] = useState(0)
+
+  // Usar API para obtener propiedades actualizadas y mapear al shape del cliente
   const { data: properties = [], isLoading } = useQuery({
     queryKey: ['/api/properties'],
     queryFn: async () => {
       const res = await apiRequest('/api/properties')
-      return await res.json() as PropertyItem[]
+      const raw = await res.json() as any[]
+      const mapped: PropertyItem[] = (raw || []).map((p: any) => ({
+        id: String(p.id || p._id || ''),
+        title: p.title,
+        description: p.description,
+        priceUsd: typeof p.priceUsd === 'number' ? p.priceUsd : Number(p.price ?? 0) || 0,
+        images: Array.isArray(p.images) ? p.images : [],
+        type: p.type,
+        status: p.status,
+        address: p.address,
+        bedrooms: p.bedrooms,
+        bathrooms: p.bathrooms,
+        featured: Boolean(p.featured)
+      }))
+      return mapped.filter(p => Boolean(p.id))
     }
   })
-  
+
   const item = properties.find((p) => p.id === params?.id)
 
   useEffect(() => {
@@ -44,8 +60,6 @@ export default function PropertyDetail() {
       </Container>
     )
   }
-
-  const [active, setActive] = useState(0)
 
   return (
     <Container className="py-5">
