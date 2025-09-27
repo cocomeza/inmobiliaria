@@ -1,39 +1,40 @@
 :root {
-  --color-armadillo: #434036;
-  --color-chino: #D1C5AB;
-  --color-glacier: #84B0CB;
-  --color-ship-cove: #6787B7;
+  --color-bluewhale: #042644;      /* Base oscuro */
+  --color-periwinkle: #ccdcec;     /* Fondo claro / textos secundarios */
+  --color-halfbaked: #84b1d4;      /* Acentos suaves */
+  --color-bostonblue: #418ebd;     /* Links, acentos principales */
 }
 
 body {
-  color: var(--color-armadillo);
+  color: var(--color-bluewhale);
   background-color: #fff;
 }
 
 .link,
-a { color: var(--color-ship-cove); }
-a:hover { color: #5876a3; }
+a { color: var(--color-bostonblue); }
+a:hover { color: var(--color-halfbaked); }
 
-.bg-chino { background-color: var(--color-chino) !important; }
-.text-armadillo { color: var(--color-armadillo) !important; }
-.text-glacier { color: var(--color-glacier) !important; }
-.text-ship { color: var(--color-ship-cove) !important; }
-.btn-glacier { background-color: var(--color-glacier); color: #fff; border: none; }
-.btn-glacier:hover { background-color: #6fa0c0; color: #fff; }
+.bg-periwinkle { background-color: var(--color-periwinkle) !important; }
+.text-bluewhale { color: var(--color-bluewhale) !important; }
+.text-halfbaked { color: var(--color-halfbaked) !important; }
+.text-boston { color: var(--color-bostonblue) !important; }
 
-/* Usar Glacier como botón primario Bootstrap si se prefiere */
-.btn-primary { background-color: var(--color-glacier); border-color: var(--color-glacier); }
-.btn-primary:hover { background-color: #6fa0c0; border-color: #6fa0c0; }
+.btn-halfbaked { background-color: var(--color-halfbaked); color: #fff; border: none; }
+.btn-halfbaked:hover { background-color: #6fa0c0; color: #fff; }
+
+/* Botón primario Bootstrap en Boston Blue */
+.btn-primary { background-color: var(--color-bostonblue); border-color: var(--color-bostonblue); }
+.btn-primary:hover { background-color: var(--color-halfbaked); border-color: var(--color-halfbaked); }
 
 .navbar-custom {
   background-color: #fff;
   border-bottom: 1px solid rgba(0,0,0,0.06);
 }
 .navbar-custom .nav-link, .navbar-custom .navbar-brand {
-  color: var(--color-armadillo);
+  color: var(--color-bluewhale);
 }
 .navbar-custom .nav-link.active {
-  color: var(--color-ship-cove);
+  color: var(--color-bostonblue);
 }
 
 .hero {
@@ -46,7 +47,7 @@ a:hover { color: #5876a3; }
   position: relative;
 }
 .hero-overlay {
-  background: linear-gradient(0deg, rgba(67,64,54,0.7), rgba(67,64,54,0.3));
+  background: linear-gradient(0deg, rgba(4,38,68,0.7), rgba(4,38,68,0.3));
   position: absolute;
   top: 0;
   left: 0;
@@ -63,11 +64,15 @@ a:hover { color: #5876a3; }
   align-items: center;
   justify-content: center;
   border-radius: 50%;
-  background: var(--color-armadillo);
+  background: var(--color-bostonblue);
   color: #fff;
 }
 
-.badge-status { background: #fff !important; color: var(--color-armadillo) !important; border: 1px solid rgba(0,0,0,0.08); }
+.badge-status { 
+  background: #fff !important; 
+  color: var(--color-bluewhale) !important; 
+  border: 1px solid rgba(0,0,0,0.08); 
+}
 
 .whatsapp-fab {
   position: fixed;
