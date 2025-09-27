@@ -15,8 +15,8 @@ export default function Navbar() {
     <BsNavbar expand="lg" className="navbar-custom sticky-top">
       <Container>
         <BsNavbar.Brand as={Link} href="/" className="fw-semibold d-block">
-          <span className="d-none d-sm-inline">Diego Nadal Inmobiliaria</span>
-          <span className="d-inline d-sm-none">DN Inmobiliaria</span>
+          <span className="d-none d-sm-inline">Inmobiliaria Ramallo</span>
+          <span className="d-inline d-sm-none">Bienes y Raices</span>
         </BsNavbar.Brand>
         <BsNavbar.Toggle aria-controls="basic-navbar-nav" />
         <BsNavbar.Collapse id="basic-navbar-nav">
