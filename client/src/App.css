@@ -1,8 +1,16 @@
+:root {
+  --color-bluewhale: #042644;      /* Base oscuro */
+  --color-periwinkle: #ccdcec;     /* Texto secundario */
+  --color-halfbaked: #84b1d4;      /* Hover/acento suave */
+  --color-bostonblue: #418ebd;     /* Acento principal */
+}
+
 #root {
   max-width: 1280px;
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
+  color: var(--color-bluewhale);
 }
 
 .logo {
@@ -12,10 +20,10 @@
   transition: filter 300ms;
 }
 .logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
+  filter: drop-shadow(0 0 2em var(--color-bostonblue));
 }
 .logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+  filter: drop-shadow(0 0 2em var(--color-halfbaked));
 }
 
 @keyframes logo-spin {
@@ -35,8 +43,12 @@
 
 .card {
   padding: 2em;
+  border: 1px solid var(--color-periwinkle);
+  border-radius: 8px;
+  background-color: #fff;
 }
 
 .read-the-docs {
-  color: #888;
+  color: var(--color-periwinkle);
 }
+
