@@ -16,7 +16,7 @@ export default function Navbar() {
       <Container>
         <BsNavbar.Brand as={Link} href="/" className="fw-semibold d-block">
           <span className="d-none d-sm-inline">Inmobiliaria Ramallo</span>
-          <span className="d-inline d-sm-none">Bienes y Raices</span>
+          <span className="d-inline d-sm-none">Inmobiliaria Ramallo</span>
         </BsNavbar.Brand>
         <BsNavbar.Toggle aria-controls="basic-navbar-nav" />
         <BsNavbar.Collapse id="basic-navbar-nav">
