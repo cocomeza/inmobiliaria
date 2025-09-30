@@ -212,7 +212,96 @@ app.get('/api/properties', async (req: Request, res: Response) => {
       order = 'desc'
     } = req.query
 
-    // Construir filtros
+    // Si no hay conexión a MongoDB, usar datos JSON como fallback
+    if (!dbConnected) {
+      console.log('📄 Usando datos JSON como fallback (sin MongoDB)')
+      
+      // Importar datos JSON
+      const fs = require('fs')
+      const path = require('path')
+      const jsonPath = path.join(__dirname, '../data/properties.json')
+      
+      let properties: any[] = []
+      try {
+        const jsonData = fs.readFileSync(jsonPath, 'utf8')
+        properties = JSON.parse(jsonData)
+      } catch (jsonError) {
+        console.error('Error leyendo archivo JSON:', jsonError)
+        properties = []
+      }
+
+      // Aplicar filtros manualmente
+      let filteredProperties = [...properties]
+      
+      if (type && type !== '') {
+        filteredProperties = filteredProperties.filter(p => p.type === type)
+      }
+      
+      if (status && status !== '') {
+        filteredProperties = filteredProperties.filter(p => p.status === status)
+      }
+      
+      if (featured !== undefined && featured !== '') {
+        const featuredBool = featured === 'true'
+        filteredProperties = filteredProperties.filter(p => Boolean(p.featured) === featuredBool)
+      }
+      
+      if (minPrice || maxPrice) {
+        filteredProperties = filteredProperties.filter(p => {
+          const price = p.priceUsd || p.price || 0
+          if (minPrice && price < Number(minPrice)) return false
+          if (maxPrice && price > Number(maxPrice)) return false
+          return true
+        })
+      }
+
+      // Aplicar ordenamiento
+      const sortField = sort as string
+      const sortOrder = order === 'desc' ? -1 : 1
+      
+      filteredProperties.sort((a, b) => {
+        let aVal = a[sortField]
+        let bVal = b[sortField]
+        
+        // Manejar fechas y números
+        if (sortField === 'createdAt' || sortField === 'updatedAt') {
+          aVal = new Date(aVal || 0).getTime()
+          bVal = new Date(bVal || 0).getTime()
+        } else if (typeof aVal === 'string') {
+          aVal = aVal.toLowerCase()
+          bVal = bVal.toLowerCase()
+        }
+        
+        if (aVal < bVal) return -1 * sortOrder
+        if (aVal > bVal) return 1 * sortOrder
+        return 0
+      })
+
+      // Aplicar paginación
+      const pageNum = Math.max(1, parseInt(page as string) || 1)
+      const limitNum = Math.min(50, Math.max(1, parseInt(limit as string) || 12))
+      const skip = (pageNum - 1) * limitNum
+      
+      const paginatedProperties = filteredProperties.slice(skip, skip + limitNum)
+      const totalCount = filteredProperties.length
+      const totalPages = Math.ceil(totalCount / limitNum)
+      const hasNextPage = pageNum < totalPages
+      const hasPrevPage = pageNum > 1
+
+      return res.json({
+        properties: paginatedProperties,
+        pagination: {
+          currentPage: pageNum,
+          totalPages,
+          totalCount,
+          limit: limitNum,
+          hasNextPage,
+          hasPrevPage
+        }
+      })
+    }
+
+    // Código original para MongoDB
     const filters: any = {}
     
     if (type && type !== '') {
@@ -278,6 +367,33 @@ app.get('/api/properties', async (req: Request, res: Response) => {
 // Obtener propiedad por ID (público)
 app.get('/api/properties/:id', async (req: Request, res: Response) => {
   try {
+    // Si no hay conexión a MongoDB, usar datos JSON como fallback
+    if (!dbConnected) {
+      console.log('📄 Usando datos JSON como fallback para propiedad individual')
+      
+      const fs = require('fs')
+      const path = require('path')
+      const jsonPath = path.join(__dirname, '../data/properties.json')
+      
+      let properties: any[] = []
+      try {
+        const jsonData = fs.readFileSync(jsonPath, 'utf8')
+        properties = JSON.parse(jsonData)
+      } catch (jsonError) {
+        console.error('Error leyendo archivo JSON:', jsonError)
+        return res.status(500).json({ message: 'Error interno del servidor' })
+      }
+
+      const property = properties.find(p => p.id === req.params.id || p._id === req.params.id)
+      
+      if (!property) {
+        return res.status(404).json({ message: 'Propiedad no encontrada' })
+      }
+      
+      return res.json(property)
+    }
+
+    // Código original para MongoDB
     const property = await Property.findById(req.params.id)
     
     if (!property) {

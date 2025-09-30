@@ -13,9 +13,13 @@ export default function Home() {
     queryKey: ['/api/properties'],
     queryFn: async () => {
       const res = await apiRequest('/api/properties')
-      const raw = await res.json() as any[]
+      const data = await res.json() as any
+      
+      // El API ahora devuelve { properties: [...], pagination: {...} }
+      const rawProperties = data.properties || data || []
+      
       // Mapear desde el backend (price, _id) al shape del cliente (priceUsd, id)
-      const mapped: PropertyItem[] = (raw || []).map((p: any) => ({
+      const mapped: PropertyItem[] = (rawProperties || []).map((p: any) => ({
         id: String(p.id || p._id || ''),
         title: p.title,
         description: p.description,
