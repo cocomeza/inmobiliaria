@@ -1,29 +1,27 @@
 import { useEffect, useState } from 'react'
 import { useRoute } from 'wouter'
-import { Container, Row, Col, Carousel, Spinner } from 'react-bootstrap'
+import { Container, Row, Col, Carousel } from 'react-bootstrap'
 import { useQuery } from '@tanstack/react-query'
 import { apiRequest, getImageUrl } from '../lib/api'
 import type { PropertyItem } from '../components/PropertyCard'
 
+
 export default function PropertyDetail() {
   const [, params] = useRoute('/propiedad/:id')
+  // Los hooks deben declararse antes de cualquier return condicional
   const [active, setActive] = useState(0)
 
-  // Consulta específica para una propiedad por ID (más eficiente)
-  const { data: property, isLoading, error } = useQuery({
-    queryKey: ['/api/properties', params?.id],
-    queryFn: async (): Promise<PropertyItem> => {
-      const res = await apiRequest(`/api/properties/${params?.id}`)
-      if (!res.ok) {
-        throw new Error(`Error ${res.status}: ${res.statusText}`)
-      }
-      const p = await res.json()
-      
-      return {
-        id: String(p._id || p.id || ''),
+  // Usar API para obtener propiedades actualizadas y mapear al shape del cliente
+  const { data: properties = [], isLoading } = useQuery({
+    queryKey: ['/api/properties'],
+    queryFn: async () => {
+      const res = await apiRequest('/api/properties')
+      const raw = await res.json() as any[]
+      const mapped: PropertyItem[] = (raw || []).map((p: any) => ({
+        id: String(p.id || p._id || ''),
         title: p.title,
         description: p.description,
-        priceUsd: typeof p.price === 'number' ? p.price : Number(p.priceUsd ?? 0) || 0,
+        priceUsd: typeof p.priceUsd === 'number' ? p.priceUsd : Number(p.price ?? 0) || 0,
         images: Array.isArray(p.images) ? p.images : [],
         type: p.type,
         status: p.status,
@@ -31,11 +29,12 @@ export default function PropertyDetail() {
         bedrooms: p.bedrooms,
         bathrooms: p.bathrooms,
         featured: Boolean(p.featured)
-      }
-    },
-    enabled: !!params?.id, // Solo ejecutar si hay un ID
-    staleTime: 5 * 60 * 1000, // 5 minutos de caché para detalles
+      }))
+      return mapped.filter(p => Boolean(p.id))
+    }
   })
+
+  const item = properties.find((p) => p.id === params?.id)
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' })
@@ -45,20 +44,19 @@ export default function PropertyDetail() {
     return (
       <Container className="py-5">
         <div className="text-center">
-          <Spinner animation="border" variant="primary" className="mb-3" />
-          <p>Cargando propiedad...</p>
+          <div className="spinner-border text-primary" role="status">
+            <span className="visually-hidden">Cargando...</span>
+          </div>
+          <p className="mt-2">Cargando propiedad...</p>
         </div>
       </Container>
     )
   }
 
-  if (error || !property) {
+  if (!item) {
     return (
       <Container className="py-5">
-        <div className="text-center">
-          <h2>Propiedad no encontrada</h2>
-          <p>La propiedad que buscas no existe o ha sido eliminada.</p>
-        </div>
+        <h1>Propiedad no encontrada</h1>
       </Container>
     )
   }
@@ -67,7 +65,7 @@ export default function PropertyDetail() {
     <Container className="py-5">
       <Row className="g-4">
         <Col md={7}>
-          {property.images?.length ? (
+          {item.images?.length ? (
             <>
               <Carousel
                 className="rounded overflow-hidden shadow-sm"
@@ -79,15 +77,15 @@ export default function PropertyDetail() {
                 pause="hover"
                 fade={false}
               >
-                {property.images.map((src, idx) => (
+                {item.images.map((src, idx) => (
                   <Carousel.Item key={idx}>
-                    <img src={getImageUrl(src)} alt={`${property.title} ${idx + 1}`} className="d-block w-100" />
+                    <img src={getImageUrl(src)} alt={`${item.title} ${idx + 1}`} className="d-block w-100" />
                   </Carousel.Item>
                 ))}
               </Carousel>
 
               <div className="mt-3 d-flex gap-2 flex-wrap">
-                {property.images.map((src, idx) => (
+                {item.images.map((src, idx) => (
                   <button
                     key={idx}
                     onClick={() => setActive(idx)}
@@ -105,21 +103,21 @@ export default function PropertyDetail() {
               </div>
             </>
           ) : (
-            <img src={"https://placehold.co/1200x800/png"} alt={property.title} className="img-fluid rounded shadow-sm" />
+            <img src={"https://placehold.co/1200x800/png"} alt={item.title} className="img-fluid rounded shadow-sm" />
           )}
-          <div className="mt-3 text-secondary">{property.description}</div>
+          <div className="mt-3 text-secondary">{item.description}</div>
         </Col>
         <Col md={5}>
-          <h1 className="h3">{property.title}</h1>
-          <div className="mb-3">{new Intl.NumberFormat('es-AR', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(property.priceUsd)}</div>
+          <h1 className="h3">{item.title}</h1>
+          <div className="mb-3">{new Intl.NumberFormat('es-AR', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(item.priceUsd)}</div>
           {/* Información de ubicación */}
-          {property.address && (
+          {item.address && (
             <div className="bg-light p-3 rounded mb-3">
               <h5 className="h6 text-muted mb-2">
                 <i className="fas fa-map-marker-alt me-2"></i>
                 Ubicación
               </h5>
-              <p className="mb-0">{property.address}</p>
+              <p className="mb-0">{item.address}</p>
             </div>
           )}
         </Col>

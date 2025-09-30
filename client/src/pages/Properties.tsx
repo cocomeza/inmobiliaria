@@ -1,135 +1,70 @@
-import { useState, useMemo } from 'react'
-import { Container, Row, Col, Pagination, Spinner, Alert } from 'react-bootstrap'
+import { useMemo, useState } from 'react'
+import { Container, Row, Col } from 'react-bootstrap'
+import { useQuery } from '@tanstack/react-query'
 import Filters from '../components/Filters'
 import type { FiltersState } from '../components/Filters'
 import PropertyCard from '../components/PropertyCard'
-import { useProperties } from '../hooks/useProperties'
+import type { PropertyItem } from '../components/PropertyCard'
+import { apiRequest } from '../lib/api'
 
 export default function Properties() {
   const [filters, setFilters] = useState<FiltersState>({ type: 'Todos', order: 'MasNuevo' })
-  const [currentPage, setCurrentPage] = useState(1)
 
-  // Convertir filtros del UI a filtros de API
-  const apiFilters = useMemo(() => {
-    const apiFilter: any = {
-      page: currentPage,
-      limit: 12
+  // Usar API para obtener propiedades actualizadas en tiempo real
+  const { data: items = [], isLoading } = useQuery({
+    queryKey: ['/api/properties'],
+    queryFn: async () => {
+      const res = await apiRequest('/api/properties')
+      const raw = await res.json() as any[]
+      const mapped: PropertyItem[] = (raw || []).map((p: any) => ({
+        id: String(p.id || p._id || ''),
+        title: p.title,
+        description: p.description,
+        priceUsd: typeof p.priceUsd === 'number' ? p.priceUsd : Number(p.price ?? 0) || 0,
+        images: Array.isArray(p.images) ? p.images : [],
+        type: p.type,
+        status: p.status,
+        address: p.address,
+        bedrooms: p.bedrooms,
+        bathrooms: p.bathrooms,
+        featured: Boolean(p.featured)
+      }))
+      return mapped.filter(p => Boolean(p.id))
     }
+  })
 
-    // Tipo de propiedad
-    if (filters.type !== 'Todos') {
-      apiFilter.type = filters.type
-    }
-
-    // Ordenamiento
-    switch (filters.order) {
-      case 'PrecioAsc':
-        apiFilter.sort = 'price'
-        apiFilter.order = 'asc'
-        break
-      case 'PrecioDesc':
-        apiFilter.sort = 'price'
-        apiFilter.order = 'desc'
-        break
-      case 'MasNuevo':
-      default:
-        apiFilter.sort = 'createdAt'
-        apiFilter.order = 'desc'
-        break
-    }
-
-    return apiFilter
-  }, [filters, currentPage])
-
-  const { data, isLoading, error } = useProperties(apiFilters)
-
-  // Resetear página cuando cambien los filtros
-  const handleFiltersChange = (newFilters: FiltersState) => {
-    setFilters(newFilters)
-    setCurrentPage(1)
-  }
-
-  const renderPagination = () => {
-    if (!data?.pagination || data.pagination.totalPages <= 1) return null
-
-    const { currentPage, totalPages, hasPrevPage, hasNextPage } = data.pagination
-    const items = []
-
-    // Botón anterior
-    items.push(
-      <Pagination.Prev 
-        key="prev" 
-        disabled={!hasPrevPage}
-        onClick={() => hasPrevPage && setCurrentPage(currentPage - 1)}
-      />
-    )
-
-    // Números de página
-    const startPage = Math.max(1, currentPage - 2)
-    const endPage = Math.min(totalPages, currentPage + 2)
-
-    for (let i = startPage; i <= endPage; i++) {
-      items.push(
-        <Pagination.Item
-          key={i}
-          active={i === currentPage}
-          onClick={() => setCurrentPage(i)}
-        >
-          {i}
-        </Pagination.Item>
-      )
-    }
-
-    // Botón siguiente
-    items.push(
-      <Pagination.Next 
-        key="next" 
-        disabled={!hasNextPage}
-        onClick={() => hasNextPage && setCurrentPage(currentPage + 1)}
-      />
-    )
-
-    return (
-      <div className="d-flex justify-content-center mt-4">
-        <Pagination>{items}</Pagination>
-      </div>
-    )
-  }
+  const filtered = useMemo(() => {
+    let list = [...items]
+    if (filters.type !== 'Todos') list = list.filter((i) => i.type === filters.type)
+    if (filters.order === 'PrecioAsc') list.sort((a, b) => a.priceUsd - b.priceUsd)
+    if (filters.order === 'PrecioDesc') list.sort((a, b) => b.priceUsd - a.priceUsd)
+    return list
+  }, [items, filters])
 
   return (
     <Container className="py-4 py-md-5">
       <h1 className="mb-3 mb-md-4 text-center text-md-start">Propiedades</h1>
-      
       <div className="mb-4">
-        <Filters value={filters} onChange={handleFiltersChange} />
+        <Filters value={filters} onChange={setFilters} />
       </div>
-
-      {error && (
-        <Alert variant="danger" className="mb-4">
-          Error al cargar las propiedades. Por favor, intenta nuevamente.
-        </Alert>
-      )}
 
       <Row className="g-3 g-md-4">
         {isLoading ? (
-          <Col xs={12} className="text-center py-5">
-            <Spinner animation="border" variant="primary" className="mb-3" />
+          <Col xs={12} className="text-center py-4">
             <p>Cargando propiedades...</p>
           </Col>
-        ) : !data?.properties || data.properties.length === 0 ? (
-          <Col xs={12} className="text-center py-5">
+        ) : filtered.length === 0 ? (
+          <Col xs={12} className="text-center py-4">
             <p>No se encontraron propiedades con los filtros seleccionados.</p>
           </Col>
         ) : (
-          data.properties.map((property) => (
-            <Col key={property.id} xs={12} sm={6} lg={4}>
-              <PropertyCard item={property} />
+          filtered.map((p, idx) => (
+            <Col key={`${p.id}-${idx}`} xs={12} sm={6} lg={4}>
+              <PropertyCard item={p} />
             </Col>
           ))
         )}
       </Row>
-
-      {renderPagination()}
     </Container>
   )
 }

@@ -1,7 +1,7 @@
-import { memo, useState, useRef, useEffect } from 'react'
-import { Card, Badge, Spinner } from 'react-bootstrap'
+import { Card, Badge } from 'react-bootstrap'
 import { Link } from 'wouter'
 import { getImageUrl } from '../lib/api'
+
 
 export interface PropertyItem {
   id: string
@@ -17,91 +17,24 @@ export interface PropertyItem {
   featured?: boolean
 }
 
-interface PropertyCardProps {
-  item: PropertyItem
-}
-
-function PropertyCard({ item }: PropertyCardProps) {
-  const [imageLoaded, setImageLoaded] = useState(false)
-  const [imageError, setImageError] = useState(false)
-  const [isInView, setIsInView] = useState(false)
-  const imgRef = useRef<HTMLDivElement>(null)
-
-  const price = new Intl.NumberFormat('es-AR', { 
-    style: 'currency', 
-    currency: 'USD', 
-    maximumFractionDigits: 0 
-  }).format(item.priceUsd)
-
+export default function PropertyCard({ item }: { item: PropertyItem }) {
+  const price = new Intl.NumberFormat('es-AR', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(item.priceUsd)
   const cover = getImageUrl(item.images?.[0] || '/placeholder.jpg')
-
-  // Lazy loading con Intersection Observer
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsInView(true)
-          observer.disconnect()
-        }
-      },
-      { threshold: 0.1, rootMargin: '50px' }
-    )
-
-    if (imgRef.current) {
-      observer.observe(imgRef.current)
-    }
-
-    return () => observer.disconnect()
-  }, [])
-
-  const handleImageLoad = () => {
-    setImageLoaded(true)
-  }
-
-  const handleImageError = () => {
-    setImageError(true)
-    setImageLoaded(true)
-  }
-
   return (
     <Link href={`/propiedad/${item.id}`}>
       <Card className="h-100 shadow-sm card-hover" data-aos="fade-up" as="div" role="button">
-        <div style={{ position: 'relative' }} ref={imgRef}>
-          {isInView && (
-            <>
-              {!imageLoaded && !imageError && (
-                <div 
-                  className="d-flex align-items-center justify-content-center bg-light"
-                  style={{ height: '200px' }}
-                >
-                  <Spinner animation="border" size="sm" variant="secondary" />
-                </div>
-              )}
-              <Card.Img 
-                variant="top" 
-                src={imageError ? 'https://placehold.co/400x300/f0f0f0/999999?text=Sin+imagen' : cover}
-                alt={item.title} 
-                className="card-img-responsive"
-                style={{ 
-                  objectFit: 'cover', 
-                  height: '200px',
-                  width: '100%',
-                  display: imageLoaded || imageError ? 'block' : 'none'
-                }}
-                onLoad={handleImageLoad}
-                onError={handleImageError}
-                loading="lazy"
-              />
-            </>
-          )}
-          {!isInView && (
-            <div 
-              className="bg-light d-flex align-items-center justify-content-center"
-              style={{ height: '200px' }}
-            >
-              <div className="text-muted small">Cargando...</div>
-            </div>
-          )}
+        <div style={{ position: 'relative' }}>
+          <Card.Img 
+            variant="top" 
+            src={cover} 
+            alt={item.title} 
+            className="card-img-responsive"
+            style={{ 
+              objectFit: 'cover', 
+              height: '200px',
+              width: '100%'
+            }} 
+          />
           <Badge bg="light" text="dark" className="position-absolute m-2 badge-status" style={{ top: 0, right: 0 }}>
             {item.status}
           </Badge>
@@ -125,8 +58,5 @@ function PropertyCard({ item }: PropertyCardProps) {
     </Link>
   )
 }
-
-// Memoizar el componente para evitar re-renders innecesarios
-export default memo(PropertyCard)
 
 
