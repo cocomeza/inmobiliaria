@@ -212,48 +212,111 @@ app.get('/api/properties', async (req: Request, res: Response) => {
       order = 'desc'
     } = req.query
 
-    // Construir filtros
-    const filters: any = {}
-    
-    if (type && type !== '') {
-      filters.type = type
-    }
-    
-    if (status && status !== '') {
-      filters.status = status
-    }
-    
-    if (featured !== undefined && featured !== '') {
-      filters.featured = featured === 'true'
-    }
-    
-    if (minPrice || maxPrice) {
-      filters.price = {}
-      if (minPrice) filters.price.$gte = Number(minPrice)
-      if (maxPrice) filters.price.$lte = Number(maxPrice)
+    let properties: any[] = []
+    let totalCount = 0
+
+    // Intentar usar MongoDB primero
+    if (dbConnected) {
+      try {
+        // Construir filtros
+        const filters: any = {}
+        
+        if (type && type !== '') {
+          filters.type = type
+        }
+        
+        if (status && status !== '') {
+          filters.status = status
+        }
+        
+        if (featured !== undefined && featured !== '') {
+          filters.featured = featured === 'true'
+        }
+        
+        if (minPrice || maxPrice) {
+          filters.price = {}
+          if (minPrice) filters.price.$gte = Number(minPrice)
+          if (maxPrice) filters.price.$lte = Number(maxPrice)
+        }
+
+        // Configurar paginación
+        const pageNum = Math.max(1, parseInt(page as string) || 1)
+        const limitNum = Math.min(50, Math.max(1, parseInt(limit as string) || 12))
+        const skip = (pageNum - 1) * limitNum
+
+        // Configurar ordenamiento
+        const sortField = sort as string
+        const sortOrder = order === 'desc' ? -1 : 1
+        const sortObj: any = { [sortField]: sortOrder }
+
+        // Ejecutar consulta con paginación
+        const [dbProperties, dbTotalCount] = await Promise.all([
+          Property.find(filters)
+            .sort(sortObj)
+            .skip(skip)
+            .limit(limitNum)
+            .lean(),
+          Property.countDocuments(filters)
+        ])
+
+        properties = dbProperties
+        totalCount = dbTotalCount
+      } catch (dbError) {
+        console.log('Error de MongoDB, usando datos estáticos:', dbError)
+        // Fallback a datos estáticos
+        dbConnected = false
+      }
     }
 
-    // Configurar paginación
-    const pageNum = Math.max(1, parseInt(page as string) || 1)
-    const limitNum = Math.min(50, Math.max(1, parseInt(limit as string) || 12)) // Máximo 50 por página
-    const skip = (pageNum - 1) * limitNum
+    // Fallback: usar datos estáticos del archivo JSON
+    if (!dbConnected) {
+      try {
+        const fs = require('fs')
+        const staticDataPath = path.join(__dirname, '../data/properties.json')
+        const staticData = JSON.parse(fs.readFileSync(staticDataPath, 'utf8'))
+        
+        // Aplicar filtros manualmente
+        let filteredProperties = staticData.filter((prop: any) => {
+          if (type && type !== '' && prop.type !== type) return false
+          if (status && status !== '' && prop.status !== status) return false
+          if (featured !== undefined && featured !== '' && Boolean(prop.featured) !== (featured === 'true')) return false
+          if (minPrice && prop.priceUsd < Number(minPrice)) return false
+          if (maxPrice && prop.priceUsd > Number(maxPrice)) return false
+          return true
+        })
 
-    // Configurar ordenamiento
-    const sortField = sort as string
-    const sortOrder = order === 'desc' ? -1 : 1
-    const sortObj: any = { [sortField]: sortOrder }
+        // Aplicar ordenamiento
+        if (sort === 'price' || sort === 'priceUsd') {
+          filteredProperties.sort((a: any, b: any) => {
+            const aPrice = a.priceUsd || 0
+            const bPrice = b.priceUsd || 0
+            return order === 'desc' ? bPrice - aPrice : aPrice - bPrice
+          })
+        }
 
-    // Ejecutar consulta con paginación
-    const [properties, totalCount] = await Promise.all([
-      Property.find(filters)
-        .sort(sortObj)
-        .skip(skip)
-        .limit(limitNum)
-        .lean(), // Usar lean() para mejor rendimiento
-      Property.countDocuments(filters)
-    ])
+        totalCount = filteredProperties.length
+
+        // Aplicar paginación
+        const pageNum = Math.max(1, parseInt(page as string) || 1)
+        const limitNum = Math.min(50, Math.max(1, parseInt(limit as string) || 12))
+        const skip = (pageNum - 1) * limitNum
+        
+        properties = filteredProperties.slice(skip, skip + limitNum).map((prop: any) => ({
+          ...prop,
+          _id: prop.id,
+          price: prop.priceUsd
+        }))
+
+      } catch (fileError) {
+        console.error('Error leyendo archivo estático:', fileError)
+        properties = []
+        totalCount = 0
+      }
+    }
 
     // Calcular información de paginación
+    const pageNum = Math.max(1, parseInt(page as string) || 1)
+    const limitNum = Math.min(50, Math.max(1, parseInt(limit as string) || 12))
     const totalPages = Math.ceil(totalCount / limitNum)
     const hasNextPage = pageNum < totalPages
     const hasPrevPage = pageNum > 1
@@ -278,7 +341,37 @@ app.get('/api/properties', async (req: Request, res: Response) => {
 // Obtener propiedad por ID (público)
 app.get('/api/properties/:id', async (req: Request, res: Response) => {
   try {
-    const property = await Property.findById(req.params.id)
+    let property: any = null
+
+    // Intentar usar MongoDB primero
+    if (dbConnected) {
+      try {
+        property = await Property.findById(req.params.id)
+      } catch (dbError) {
+        console.log('Error de MongoDB, usando datos estáticos:', dbError)
+        dbConnected = false
+      }
+    }
+
+    // Fallback: usar datos estáticos del archivo JSON
+    if (!dbConnected) {
+      try {
+        const fs = require('fs')
+        const staticDataPath = path.join(__dirname, '../data/properties.json')
+        const staticData = JSON.parse(fs.readFileSync(staticDataPath, 'utf8'))
+        
+        property = staticData.find((prop: any) => prop.id === req.params.id)
+        if (property) {
+          property = {
+            ...property,
+            _id: property.id,
+            price: property.priceUsd
+          }
+        }
+      } catch (fileError) {
+        console.error('Error leyendo archivo estático:', fileError)
+      }
+    }
     
     if (!property) {
       return res.status(404).json({ message: 'Propiedad no encontrada' })

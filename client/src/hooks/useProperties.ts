@@ -64,11 +64,12 @@ export function useProperties(filters: PropertiesFilters = {}) {
       const data = await res.json()
       
       // Mapear las propiedades al formato esperado
-      const mappedProperties: PropertyItem[] = (data.properties || []).map((p: any) => ({
+      const raw = data.properties || data || []
+      const mappedProperties: PropertyItem[] = (raw || []).map((p: any) => ({
         id: String(p._id || p.id || ''),
         title: p.title,
         description: p.description,
-        priceUsd: typeof p.price === 'number' ? p.price : Number(p.priceUsd ?? 0) || 0,
+        priceUsd: typeof p.priceUsd === 'number' ? p.priceUsd : Number(p.price ?? 0) || 0,
         images: Array.isArray(p.images) ? p.images : [],
         type: p.type,
         status: p.status,

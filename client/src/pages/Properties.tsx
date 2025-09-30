@@ -15,7 +15,8 @@ export default function Properties() {
     queryKey: ['/api/properties'],
     queryFn: async () => {
       const res = await apiRequest('/api/properties')
-      const raw = await res.json() as any[]
+      const data = await res.json() as any
+      const raw = data.properties || data || []
       const mapped: PropertyItem[] = (raw || []).map((p: any) => ({
         id: String(p.id || p._id || ''),
         title: p.title,
