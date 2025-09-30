@@ -1,54 +1,49 @@
-:root {
-  --color-bluewhale: #042644;      /* Base oscuro */
-  --color-periwinkle: #ccdcec;     /* Texto secundario */
-  --color-halfbaked: #84b1d4;      /* Hover/acento suave */
-  --color-bostonblue: #418ebd;     /* Acento principal */
-}
-
+/* Estilos principales de la aplicación */
 #root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
-  color: var(--color-bluewhale);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em var(--color-bostonblue));
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em var(--color-halfbaked));
+/* Contenedor principal con flex-grow para footer pegajoso */
+main {
+  flex: 1 0 auto;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
+/* Reset de márgenes para Bootstrap */
+.container {
+  max-width: 1140px;
+}
+
+/* Espaciado consistente */
+section {
+  padding: 60px 0;
+}
+
+@media (max-width: 768px) {
+  section {
+    padding: 40px 0;
   }
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+/* Transiciones suaves globales */
+* {
+  transition: color 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
 }
 
-.card {
-  padding: 2em;
-  border: 1px solid var(--color-periwinkle);
-  border-radius: 8px;
-  background-color: #fff;
+/* Links sin subrayado por defecto */
+a {
+  text-decoration: none;
 }
 
-.read-the-docs {
-  color: var(--color-periwinkle);
+/* Mejoras para formularios */
+.form-control:focus,
+.form-select:focus {
+  border-color: var(--boston-blue);
+  box-shadow: 0 0 0 0.2rem rgba(65, 142, 189, 0.25);
 }
 
+/* Loader/Spinner personalizado */
+.spinner-border {
+  color: var(--boston-blue);
+}
