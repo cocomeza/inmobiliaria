@@ -5,7 +5,8 @@ const connectDB = async (): Promise<void> => {
     const mongoUri = process.env.MONGO_URI;
     
     if (!mongoUri) {
-      throw new Error('MONGO_URI no está definida en las variables de entorno');
+      console.log('⚠️  MONGO_URI no está definida - funcionando en modo JSON fallback');
+      return; // No lanzar error, solo retornar
     }
 
     console.log('Conectando a MongoDB...');
@@ -34,7 +35,13 @@ const connectDB = async (): Promise<void> => {
       });
     }
     
-    // Salir del proceso si no se puede conectar a la BD
+    // En desarrollo, no salir del proceso para permitir funcionar con JSON
+    if (process.env.NODE_ENV !== 'production') {
+      console.log('🔄 Continuando en modo JSON fallback');
+      return;
+    }
+    
+    // Solo en producción salir del proceso
     process.exit(1);
   }
 };

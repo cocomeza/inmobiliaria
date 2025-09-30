@@ -11,12 +11,16 @@ export default function Properties() {
   const [filters, setFilters] = useState<FiltersState>({ type: 'Todos', order: 'MasNuevo' })
 
   // Usar API para obtener propiedades actualizadas en tiempo real
-  const { data: items = [], isLoading } = useQuery({
+  const { data: items = [], isLoading, error } = useQuery({
     queryKey: ['/api/properties'],
     queryFn: async () => {
       const res = await apiRequest('/api/properties')
-      const raw = await res.json() as any[]
-      const mapped: PropertyItem[] = (raw || []).map((p: any) => ({
+      const data = await res.json() as any
+      
+      // El API ahora devuelve { properties: [...], pagination: {...} }
+      const rawProperties = data.properties || data || []
+      
+      const mapped: PropertyItem[] = (rawProperties || []).map((p: any) => ({
         id: String(p.id || p._id || ''),
         title: p.title,
         description: p.description,
@@ -52,6 +56,10 @@ export default function Properties() {
         {isLoading ? (
           <Col xs={12} className="text-center py-4">
             <p>Cargando propiedades...</p>
+          </Col>
+        ) : error ? (
+          <Col xs={12} className="text-center py-4">
+            <p>Error cargando propiedades: {error.message}</p>
           </Col>
         ) : filtered.length === 0 ? (
           <Col xs={12} className="text-center py-4">
