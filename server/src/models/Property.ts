@@ -89,11 +89,12 @@ const propertySchema = new Schema<IProperty>({
   }
 });
 
-// Índices para búsquedas eficientes
-propertySchema.index({ type: 1 });
-propertySchema.index({ status: 1 });
-propertySchema.index({ featured: 1 });
-propertySchema.index({ price: 1 });
-propertySchema.index({ createdAt: -1 });
+// Índices para búsquedas eficientes y paginación optimizada
+propertySchema.index({ type: 1, createdAt: -1 }); // Índice compuesto para filtro + ordenamiento
+propertySchema.index({ status: 1, createdAt: -1 });
+propertySchema.index({ featured: 1, createdAt: -1 });
+propertySchema.index({ price: 1, createdAt: -1 });
+propertySchema.index({ createdAt: -1 }); // Para ordenamiento por defecto
+propertySchema.index({ type: 1, status: 1, createdAt: -1 }); // Para filtros combinados
 
 export const Property = mongoose.model<IProperty>('Property', propertySchema);

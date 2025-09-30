@@ -3,6 +3,7 @@ import express, { Request, Response } from 'express'
 import cors from 'cors'
 import helmet from 'helmet'
 import rateLimit from 'express-rate-limit'
+import compression from 'compression'
 import path from 'path'
 
 // Configuración de variables de entorno
@@ -77,6 +78,7 @@ const corsOptions = {
 }
 
 app.use(cors(corsOptions))
+app.use(compression()) // Compresión gzip para respuestas
 app.use(express.json({ limit: '10mb' }))
 
 // Security middlewares
@@ -197,15 +199,20 @@ app.get('/api/auth-check', authenticateToken, (req: AuthRequest, res: Response) 
 // RUTAS DE PROPIEDADES
 // ========================
 
-// Obtener todas las propiedades (público)
+// Obtener todas las propiedades (público) con paginación
 app.get('/api/properties', async (req: Request, res: Response) => {
   try {
-    const { type, status, featured, minPrice, maxPrice } = req.query
+    const { type, status, featured, minPrice, maxPrice, page = '1', limit = '12' } = req.query
+
+    // Validar y convertir parámetros de paginación
+    const pageNum = Math.max(1, parseInt(page as string) || 1)
+    const limitNum = Math.min(50, Math.max(1, parseInt(limit as string) || 12)) // Máximo 50 items por página
+    const skip = (pageNum - 1) * limitNum
 
     // Construir filtros
     const filters: any = {}
     
-    if (type && type !== '') {
+    if (type && type !== '' && type !== 'Todos') {
       filters.type = type
     }
     
@@ -223,10 +230,51 @@ app.get('/api/properties', async (req: Request, res: Response) => {
       if (maxPrice) filters.price.$lte = Number(maxPrice)
     }
 
-    const properties = await Property.find(filters).sort({ createdAt: -1 })
-    res.json(properties)
+    // Ejecutar consultas en paralelo para mejor rendimiento
+    const [properties, totalCount] = await Promise.all([
+      Property.find(filters)
+        .sort({ createdAt: -1 })
+        .skip(skip)
+        .limit(limitNum)
+        .lean(), // Usar lean() para mejor rendimiento
+      Property.countDocuments(filters)
+    ])
+
+    const hasMore = skip + properties.length < totalCount
+
+    // Respuesta optimizada
+    res.json({
+      properties,
+      pagination: {
+        page: pageNum,
+        limit: limitNum,
+        total: totalCount,
+        pages: Math.ceil(totalCount / limitNum),
+        hasMore
+      },
+      // Mantener compatibilidad con frontend actual
+      total: totalCount,
+      hasMore
+    })
   } catch (error) {
     console.error('Error obteniendo propiedades:', error)
+    res.status(500).json({ message: 'Error interno del servidor' })
+  }
+})
+
+// Obtener propiedades destacadas (público) - endpoint optimizado para home
+app.get('/api/properties/featured', async (req: Request, res: Response) => {
+  try {
+    const limit = Math.min(10, parseInt(req.query.limit as string) || 6)
+    
+    const properties = await Property.find({ featured: true })
+      .sort({ createdAt: -1 })
+      .limit(limit)
+      .lean()
+    
+    res.json(properties)
+  } catch (error) {
+    console.error('Error obteniendo propiedades destacadas:', error)
     res.status(500).json({ message: 'Error interno del servidor' })
   }
 })

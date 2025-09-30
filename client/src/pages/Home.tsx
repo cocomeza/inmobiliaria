@@ -6,15 +6,16 @@ import About from '../components/About'
 import PropertyCard from '../components/PropertyCard'
 import type { PropertyItem } from '../components/PropertyCard'
 import { apiRequest } from '../lib/api'
+import { QUERY_CONFIG } from '../config/performance'
 
 export default function Home() {
-  // Usar API en lugar de archivo estático para mostrar propiedades actualizadas
+  // Usar endpoint específico para propiedades destacadas
   const { data: properties = [] } = useQuery({
-    queryKey: ['/api/properties'],
+    queryKey: ['/api/properties/featured'],
     queryFn: async () => {
-      const res = await apiRequest('/api/properties')
-      const raw = await res.json() as any[]
-      // Mapear desde el backend (price, _id) al shape del cliente (priceUsd, id)
+      const res = await apiRequest('/api/properties/featured?limit=6')
+      const raw = await res.json()
+      
       const mapped: PropertyItem[] = (raw || []).map((p: any) => ({
         id: String(p.id || p._id || ''),
         title: p.title,
@@ -28,14 +29,14 @@ export default function Home() {
         bathrooms: p.bathrooms,
         featured: Boolean(p.featured)
       }))
-      // Filtrar items sin id válido
+      
       return mapped.filter(p => Boolean(p.id))
-    }
+    },
+    staleTime: QUERY_CONFIG.staleTime.featured,
   })
 
-  // Mostrar propiedades destacadas o las primeras 3 si no hay destacadas
-  const featuredList = properties.filter(p => p.featured)
-  const featured = featuredList.length > 0 ? featuredList.slice(0, 3) : properties.slice(0, 3)
+  // Mostrar las primeras 3 propiedades (ya filtradas como destacadas en el backend)
+  const featured = properties.slice(0, 3)
   
   return (
     <>
