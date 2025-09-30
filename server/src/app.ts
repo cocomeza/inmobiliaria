@@ -200,7 +200,7 @@ app.get('/api/auth-check', authenticateToken, (req: AuthRequest, res: Response) 
 // Obtener todas las propiedades (público)
 app.get('/api/properties', async (req: Request, res: Response) => {
   try {
-    const { type, status, featured, minPrice, maxPrice } = req.query
+    const { type, status, featured, minPrice, maxPrice, page = '1', limit = '12' } = req.query
 
     // Construir filtros
     const filters: any = {}
@@ -223,8 +223,20 @@ app.get('/api/properties', async (req: Request, res: Response) => {
       if (maxPrice) filters.price.$lte = Number(maxPrice)
     }
 
-    const properties = await Property.find(filters).sort({ createdAt: -1 })
-    res.json(properties)
+    // Paginación
+    const pageNum = Math.max(Number(page), 1)
+    const limitNum = Math.max(Number(limit), 1)
+    const skip = (pageNum - 1) * limitNum
+
+    const [items, total] = await Promise.all([
+      Property.find(filters)
+        .sort({ createdAt: -1 })
+        .skip(skip)
+        .limit(limitNum),
+      Property.countDocuments(filters)
+    ])
+
+    res.json({ items, total, page: pageNum, limit: limitNum })
   } catch (error) {
     console.error('Error obteniendo propiedades:', error)
     res.status(500).json({ message: 'Error interno del servidor' })
