@@ -15,8 +15,12 @@ export default function Properties() {
     queryKey: ['/api/properties'],
     queryFn: async () => {
       const res = await apiRequest('/api/properties')
-      const raw = await res.json() as any[]
-      const mapped: PropertyItem[] = (raw || []).map((p: any) => ({
+      const data = await res.json() as any
+
+      // El endpoint puede devolver { properties: [...] } o directamente un array
+      const raw: any[] = Array.isArray(data) ? data : (data?.properties ?? [])
+
+      const mapped: PropertyItem[] = raw.map((p: any) => ({
         id: String(p.id || p._id || ''),
         title: p.title,
         description: p.description,
@@ -29,6 +33,7 @@ export default function Properties() {
         bathrooms: p.bathrooms,
         featured: Boolean(p.featured)
       }))
+
       return mapped.filter(p => Boolean(p.id))
     }
   })
