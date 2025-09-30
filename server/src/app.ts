@@ -3,6 +3,7 @@ import express, { Request, Response } from 'express'
 import cors from 'cors'
 import helmet from 'helmet'
 import rateLimit from 'express-rate-limit'
+import compression from 'compression'
 import path from 'path'
 
 // Configuración de variables de entorno
@@ -51,6 +52,30 @@ import { User } from './models/User'
 
 const app = express()
 
+// Cache simple en memoria para propiedades
+const CACHE_TTL = parseInt(process.env.CACHE_TTL || '60000') // Default: 1 minuto
+const propertiesCache = {
+  data: null as any,
+  timestamp: 0,
+  ttl: CACHE_TTL
+}
+
+// Middleware de cache para propiedades
+const cacheMiddleware = (req: Request, res: Response, next: any) => {
+  // Solo cachear GET requests sin filtros específicos
+  if (req.method === 'GET' && req.path === '/api/properties') {
+    const hasFilters = Object.keys(req.query).some(key => 
+      ['type', 'status', 'featured', 'minPrice', 'maxPrice'].includes(key) && req.query[key]
+    )
+    
+    if (!hasFilters && propertiesCache.data && Date.now() - propertiesCache.timestamp < propertiesCache.ttl) {
+      console.log('📦 Sirviendo propiedades desde cache')
+      return res.json(propertiesCache.data)
+    }
+  }
+  next()
+}
+
 // Configuración CORS actualizada para Vercel
 const corsOptions = {
   origin: isProduction 
@@ -77,6 +102,7 @@ const corsOptions = {
 }
 
 app.use(cors(corsOptions))
+app.use(compression()) // Habilitar compresión gzip
 app.use(express.json({ limit: '10mb' }))
 
 // Security middlewares
@@ -198,9 +224,19 @@ app.get('/api/auth-check', authenticateToken, (req: AuthRequest, res: Response) 
 // ========================
 
 // Obtener todas las propiedades (público)
-app.get('/api/properties', async (req: Request, res: Response) => {
+app.get('/api/properties', cacheMiddleware, async (req: Request, res: Response) => {
   try {
-    const { type, status, featured, minPrice, maxPrice } = req.query
+    const { 
+      type, 
+      status, 
+      featured, 
+      minPrice, 
+      maxPrice, 
+      page = '1', 
+      limit = process.env.MAX_PROPERTIES_PER_PAGE || '50',
+      sort = 'createdAt',
+      order = 'desc'
+    } = req.query
 
     // Construir filtros
     const filters: any = {}
@@ -223,7 +259,46 @@ app.get('/api/properties', async (req: Request, res: Response) => {
       if (maxPrice) filters.price.$lte = Number(maxPrice)
     }
 
-    const properties = await Property.find(filters).sort({ createdAt: -1 })
+    // Configuración de paginación
+    const pageNum = Math.max(1, parseInt(page as string))
+    const limitNum = Math.min(100, Math.max(1, parseInt(limit as string)))
+    const skip = (pageNum - 1) * limitNum
+
+    // Configuración de ordenamiento
+    const sortField = sort as string
+    const sortOrder = order === 'asc' ? 1 : -1
+    const sortOptions: any = { [sortField]: sortOrder }
+
+    // Ejecutar consulta con paginación y proyección para optimizar
+    const [properties, totalCount] = await Promise.all([
+      Property.find(filters)
+        .select('title description price priceUsd address bedrooms bathrooms images featured type status createdAt')
+        .sort(sortOptions)
+        .skip(skip)
+        .limit(limitNum)
+        .lean(), // Usar lean() para mejor rendimiento
+      Property.countDocuments(filters)
+    ])
+
+    // Agregar headers de paginación
+    res.set({
+      'X-Total-Count': totalCount.toString(),
+      'X-Page': pageNum.toString(),
+      'X-Limit': limitNum.toString(),
+      'X-Total-Pages': Math.ceil(totalCount / limitNum).toString()
+    })
+
+    // Guardar en cache si no hay filtros
+    const hasFilters = Object.keys(req.query).some(key => 
+      ['type', 'status', 'featured', 'minPrice', 'maxPrice'].includes(key) && req.query[key]
+    )
+    
+    if (!hasFilters) {
+      propertiesCache.data = properties
+      propertiesCache.timestamp = Date.now()
+      console.log('💾 Propiedades guardadas en cache')
+    }
+
     res.json(properties)
   } catch (error) {
     console.error('Error obteniendo propiedades:', error)
@@ -287,6 +362,12 @@ app.post('/api/properties', authenticateToken, requireAdmin, async (req: AuthReq
     })
 
     const savedProperty = await newProperty.save()
+    
+    // Limpiar cache de propiedades
+    propertiesCache.data = null
+    propertiesCache.timestamp = 0
+    console.log('🗑️ Cache de propiedades limpiado')
+    
     res.status(201).json(savedProperty)
   } catch (error) {
     console.error('Error creando propiedad:', error)
@@ -337,6 +418,11 @@ app.put('/api/properties/:id', authenticateToken, requireAdmin, async (req: Auth
       return res.status(404).json({ message: 'Propiedad no encontrada' })
     }
 
+    // Limpiar cache de propiedades
+    propertiesCache.data = null
+    propertiesCache.timestamp = 0
+    console.log('🗑️ Cache de propiedades limpiado')
+
     res.json(updatedProperty)
   } catch (error) {
     console.error('Error actualizando propiedad:', error)
@@ -352,6 +438,11 @@ app.delete('/api/properties/:id', authenticateToken, requireAdmin, async (req: A
     if (!deletedProperty) {
       return res.status(404).json({ message: 'Propiedad no encontrada' })
     }
+    
+    // Limpiar cache de propiedades
+    propertiesCache.data = null
+    propertiesCache.timestamp = 0
+    console.log('🗑️ Cache de propiedades limpiado')
     
     res.status(204).send()
   } catch (error) {

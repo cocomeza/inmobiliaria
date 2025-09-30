@@ -5,11 +5,12 @@ import Services from '../components/Services'
 import About from '../components/About'
 import PropertyCard from '../components/PropertyCard'
 import type { PropertyItem } from '../components/PropertyCard'
+import PropertySkeleton from '../components/PropertySkeleton'
 import { apiRequest } from '../lib/api'
 
 export default function Home() {
   // Usar API en lugar de archivo estático para mostrar propiedades actualizadas
-  const { data: properties = [] } = useQuery({
+  const { data: properties = [], isLoading } = useQuery({
     queryKey: ['/api/properties'],
     queryFn: async () => {
       const res = await apiRequest('/api/properties')
@@ -43,11 +44,20 @@ export default function Home() {
       <Container className="py-4 py-md-5">
         <h2 className="mb-3 mb-md-4 text-center text-md-start">Propiedades destacadas</h2>
         <Row className="g-3 g-md-4">
-          {featured.map((p, idx) => (
-            <Col key={`${p.id}-${idx}`} xs={12} sm={6} lg={4}>
-              <PropertyCard item={p} />
-            </Col>
-          ))}
+          {isLoading ? (
+            // Mostrar 3 skeletons mientras carga
+            Array.from({ length: 3 }).map((_, idx) => (
+              <Col key={`skeleton-${idx}`} xs={12} sm={6} lg={4}>
+                <PropertySkeleton />
+              </Col>
+            ))
+          ) : (
+            featured.map((p, idx) => (
+              <Col key={`${p.id}-${idx}`} xs={12} sm={6} lg={4}>
+                <PropertyCard item={p} />
+              </Col>
+            ))
+          )}
         </Row>
       </Container>
       <Services />

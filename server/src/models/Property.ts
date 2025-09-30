@@ -96,4 +96,8 @@ propertySchema.index({ featured: 1 });
 propertySchema.index({ price: 1 });
 propertySchema.index({ createdAt: -1 });
 
+// Índice compuesto para consultas comunes
+propertySchema.index({ status: 1, type: 1, createdAt: -1 });
+propertySchema.index({ featured: 1, createdAt: -1 });
+
 export const Property = mongoose.model<IProperty>('Property', propertySchema);

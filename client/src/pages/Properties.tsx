@@ -5,6 +5,7 @@ import Filters from '../components/Filters'
 import type { FiltersState } from '../components/Filters'
 import PropertyCard from '../components/PropertyCard'
 import type { PropertyItem } from '../components/PropertyCard'
+import PropertySkeleton from '../components/PropertySkeleton'
 import { apiRequest } from '../lib/api'
 
 export default function Properties() {
@@ -50,9 +51,12 @@ export default function Properties() {
 
       <Row className="g-3 g-md-4">
         {isLoading ? (
-          <Col xs={12} className="text-center py-4">
-            <p>Cargando propiedades...</p>
-          </Col>
+          // Mostrar 6 skeletons mientras carga
+          Array.from({ length: 6 }).map((_, idx) => (
+            <Col key={`skeleton-${idx}`} xs={12} sm={6} lg={4}>
+              <PropertySkeleton />
+            </Col>
+          ))
         ) : filtered.length === 0 ? (
           <Col xs={12} className="text-center py-4">
             <p>No se encontraron propiedades con los filtros seleccionados.</p>

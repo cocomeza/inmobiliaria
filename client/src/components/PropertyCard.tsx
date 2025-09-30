@@ -1,6 +1,7 @@
 import { Card, Badge } from 'react-bootstrap'
 import { Link } from 'wouter'
 import { getImageUrl } from '../lib/api'
+import { useState, useEffect, useRef } from 'react'
 
 
 export interface PropertyItem {
@@ -20,19 +21,56 @@ export interface PropertyItem {
 export default function PropertyCard({ item }: { item: PropertyItem }) {
   const price = new Intl.NumberFormat('es-AR', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(item.priceUsd)
   const cover = getImageUrl(item.images?.[0] || '/placeholder.jpg')
+  
+  // Lazy loading de imágenes
+  const [imageSrc, setImageSrc] = useState<string>('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAwIiBoZWlnaHQ9IjYwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iODAwIiBoZWlnaHQ9IjYwMCIgZmlsbD0iI2UwZTBlMCIvPjwvc3ZnPg==')
+  const [isLoading, setIsLoading] = useState(true)
+  const imgRef = useRef<HTMLDivElement>(null)
+  
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            // Pre-cargar la imagen
+            const img = new Image()
+            img.src = cover
+            img.onload = () => {
+              setImageSrc(cover)
+              setIsLoading(false)
+            }
+            img.onerror = () => {
+              setImageSrc('https://placehold.co/800x600/png')
+              setIsLoading(false)
+            }
+            observer.disconnect()
+          }
+        })
+      },
+      { threshold: 0.1, rootMargin: '50px' }
+    )
+    
+    if (imgRef.current) {
+      observer.observe(imgRef.current)
+    }
+    
+    return () => observer.disconnect()
+  }, [cover])
+  
   return (
     <Link href={`/propiedad/${item.id}`}>
       <Card className="h-100 shadow-sm card-hover" data-aos="fade-up" as="div" role="button">
-        <div style={{ position: 'relative' }}>
+        <div ref={imgRef} style={{ position: 'relative' }}>
           <Card.Img 
             variant="top" 
-            src={cover} 
+            src={imageSrc} 
             alt={item.title} 
-            className="card-img-responsive"
+            className={`card-img-responsive ${isLoading ? 'opacity-50' : ''}`}
             style={{ 
               objectFit: 'cover', 
               height: '200px',
-              width: '100%'
+              width: '100%',
+              transition: 'opacity 0.3s ease-in-out'
             }} 
           />
           <Badge bg="light" text="dark" className="position-absolute m-2 badge-status" style={{ top: 0, right: 0 }}>
