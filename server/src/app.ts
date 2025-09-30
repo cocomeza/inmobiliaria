@@ -197,20 +197,10 @@ app.get('/api/auth-check', authenticateToken, (req: AuthRequest, res: Response) 
 // RUTAS DE PROPIEDADES
 // ========================
 
-// Obtener todas las propiedades (público) con paginación
+// Obtener todas las propiedades (público)
 app.get('/api/properties', async (req: Request, res: Response) => {
   try {
-    const { 
-      type, 
-      status, 
-      featured, 
-      minPrice, 
-      maxPrice,
-      page = '1',
-      limit = '12',
-      sort = 'createdAt',
-      order = 'desc'
-    } = req.query
+    const { type, status, featured, minPrice, maxPrice } = req.query
 
     // Construir filtros
     const filters: any = {}
@@ -233,42 +223,8 @@ app.get('/api/properties', async (req: Request, res: Response) => {
       if (maxPrice) filters.price.$lte = Number(maxPrice)
     }
 
-    // Configurar paginación
-    const pageNum = Math.max(1, parseInt(page as string) || 1)
-    const limitNum = Math.min(50, Math.max(1, parseInt(limit as string) || 12)) // Máximo 50 por página
-    const skip = (pageNum - 1) * limitNum
-
-    // Configurar ordenamiento
-    const sortField = sort as string
-    const sortOrder = order === 'desc' ? -1 : 1
-    const sortObj: any = { [sortField]: sortOrder }
-
-    // Ejecutar consulta con paginación
-    const [properties, totalCount] = await Promise.all([
-      Property.find(filters)
-        .sort(sortObj)
-        .skip(skip)
-        .limit(limitNum)
-        .lean(), // Usar lean() para mejor rendimiento
-      Property.countDocuments(filters)
-    ])
-
-    // Calcular información de paginación
-    const totalPages = Math.ceil(totalCount / limitNum)
-    const hasNextPage = pageNum < totalPages
-    const hasPrevPage = pageNum > 1
-
-    res.json({
-      properties,
-      pagination: {
-        currentPage: pageNum,
-        totalPages,
-        totalCount,
-        limit: limitNum,
-        hasNextPage,
-        hasPrevPage
-      }
-    })
+    const properties = await Property.find(filters).sort({ createdAt: -1 })
+    res.json(properties)
   } catch (error) {
     console.error('Error obteniendo propiedades:', error)
     res.status(500).json({ message: 'Error interno del servidor' })
