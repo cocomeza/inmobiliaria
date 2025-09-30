@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react'
 import { Container, Row, Col } from 'react-bootstrap'
-import { useQuery } from '@tanstack/react-query'
+import { useInfiniteQuery } from '@tanstack/react-query'
 import Filters from '../components/Filters'
 import type { FiltersState } from '../components/Filters'
 import PropertyCard from '../components/PropertyCard'
@@ -10,13 +10,19 @@ import { apiRequest } from '../lib/api'
 export default function Properties() {
   const [filters, setFilters] = useState<FiltersState>({ type: 'Todos', order: 'MasNuevo' })
 
-  // Usar API para obtener propiedades actualizadas en tiempo real
-  const { data: items = [], isLoading } = useQuery({
-    queryKey: ['/api/properties'],
-    queryFn: async () => {
-      const res = await apiRequest('/api/properties')
-      const raw = await res.json() as any[]
-      const mapped: PropertyItem[] = (raw || []).map((p: any) => ({
+  // Paginated properties
+  const {
+    data,
+    isLoading,
+    isFetchingNextPage,
+    fetchNextPage,
+    hasNextPage
+  } = useInfiniteQuery({
+    queryKey: ['properties'],
+    queryFn: async ({ pageParam = 1 }) => {
+      const res = await apiRequest(`/api/properties?page=${pageParam}&limit=12`)
+      const json = await res.json() as { items: any[]; total: number; page: number; limit: number }
+      const mapped: PropertyItem[] = json.items.map((p: any) => ({
         id: String(p.id || p._id || ''),
         title: p.title,
         description: p.description,
@@ -29,9 +35,18 @@ export default function Properties() {
         bathrooms: p.bathrooms,
         featured: Boolean(p.featured)
       }))
-      return mapped.filter(p => Boolean(p.id))
+      return { items: mapped.filter(p => Boolean(p.id)), total: json.total }
+    },
+    getNextPageParam: (lastPage, allPages) => {
+      const fetched = allPages.flatMap(p => p.items).length
+      if (fetched < lastPage.total) {
+        return allPages.length + 1 // next page number
+      }
+      return undefined
     }
   })
+
+  const items = data ? data.pages.flatMap(p => p.items) : []
 
   const filtered = useMemo(() => {
     let list = [...items]
@@ -63,6 +78,13 @@ export default function Properties() {
               <PropertyCard item={p} />
             </Col>
           ))
+        )}
+        {hasNextPage && (
+          <Col xs={12} className="text-center mt-4">
+            <button className="btn btn-outline-primary" disabled={isFetchingNextPage} onClick={() => fetchNextPage()}>
+              {isFetchingNextPage ? 'Cargando...' : 'Cargar más'}
+            </button>
+          </Col>
         )}
       </Row>
     </Container>
