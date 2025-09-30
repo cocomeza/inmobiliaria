@@ -1,31 +1,26 @@
-:root { 
-  /* 🎨 Paleta personalizada */
-  --blue-whale: #042644;
-  --periwinkle-gray: #ccdcec;
-  --half-baked: #84b1d4;
-  --boston-blue: #418ebd;
-
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
-  color-scheme: light dark;
-  color: var(--periwinkle-gray);
-  background-color: var(--blue-whale);
+  color-scheme: light;
+  color: #213547;
+  background-color: #ffffff;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
 }
 
 a {
   font-weight: 500;
-  color: var(--boston-blue);
+  color: #646cff;
   text-decoration: inherit;
 }
 a:hover {
-  color: var(--half-baked);
+  color: #535bf2;
 }
 
 body {
@@ -34,14 +29,11 @@ body {
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
-  background-color: var(--blue-whale);
-  color: var(--periwinkle-gray);
 }
 
 h1 {
   font-size: 3.2em;
   line-height: 1.1;
-  color: var(--periwinkle-gray);
 }
 
 button {
@@ -51,30 +43,28 @@ button {
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: var(--boston-blue);
+  background-color: #1a1a1a;
   color: white;
   cursor: pointer;
-  transition: border-color 0.25s, background-color 0.25s;
+  transition: border-color 0.25s;
 }
 button:hover {
-  border-color: var(--half-baked);
-  background-color: var(--half-baked);
+  border-color: #646cff;
 }
 button:focus,
 button:focus-visible {
-  outline: 4px auto var(--half-baked);
+  outline: 4px auto -webkit-focus-ring-color;
 }
 
 @media (prefers-color-scheme: light) {
   :root {
-    color: var(--blue-whale);
-    background-color: var(--periwinkle-gray);
+    color: #213547;
+    background-color: #ffffff;
   }
   a:hover {
-    color: var(--half-baked);
+    color: #747bff;
   }
   button {
-    background-color: var(--boston-blue);
-    color: white;
+    background-color: #f9f9f9;
   }
 }

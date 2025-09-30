@@ -1,44 +1,60 @@
 :root {
-  --color-bluewhale: #042644;      /* Base oscuro */
-  --color-periwinkle: #ccdcec;     /* Fondo claro / textos secundarios */
-  --color-halfbaked: #84b1d4;      /* Acentos suaves */
-  --color-bostonblue: #418ebd;     /* Links, acentos principales */
+  --primary-color: #2c5aa0;        /* Azul principal */
+  --secondary-color: #f8f9fa;       /* Gris claro */
+  --accent-color: #28a745;          /* Verde para destacar */
+  --text-dark: #333333;             /* Texto oscuro */
+  --text-light: #6c757d;            /* Texto claro */
+  --border-color: #dee2e6;          /* Bordes */
 }
 
 body {
-  color: var(--color-bluewhale);
+  color: var(--text-dark);
   background-color: #fff;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .link,
-a { color: var(--color-bostonblue); }
-a:hover { color: var(--color-halfbaked); }
+a { color: var(--primary-color); }
+a:hover { color: var(--accent-color); }
 
-.bg-periwinkle { background-color: var(--color-periwinkle) !important; }
-.text-bluewhale { color: var(--color-bluewhale) !important; }
-.text-halfbaked { color: var(--color-halfbaked) !important; }
-.text-boston { color: var(--color-bostonblue) !important; }
+.bg-light { background-color: var(--secondary-color) !important; }
+.text-primary { color: var(--primary-color) !important; }
+.text-secondary { color: var(--text-light) !important; }
+.text-success { color: var(--accent-color) !important; }
 
-.btn-halfbaked { background-color: var(--color-halfbaked); color: #fff; border: none; }
-.btn-halfbaked:hover { background-color: #6fa0c0; color: #fff; }
+.btn-primary { 
+  background-color: var(--primary-color); 
+  border-color: var(--primary-color); 
+}
+.btn-primary:hover { 
+  background-color: #1e3d6f; 
+  border-color: #1e3d6f; 
+}
 
-/* Botón primario Bootstrap en Boston Blue */
-.btn-primary { background-color: var(--color-bostonblue); border-color: var(--color-bostonblue); }
-.btn-primary:hover { background-color: var(--color-halfbaked); border-color: var(--color-halfbaked); }
+.btn-success { 
+  background-color: var(--accent-color); 
+  border-color: var(--accent-color); 
+}
+.btn-success:hover { 
+  background-color: #1e7e34; 
+  border-color: #1e7e34; 
+}
 
 .navbar-custom {
   background-color: #fff;
-  border-bottom: 1px solid rgba(0,0,0,0.06);
+  border-bottom: 1px solid var(--border-color);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 .navbar-custom .nav-link, .navbar-custom .navbar-brand {
-  color: var(--color-bluewhale);
+  color: var(--text-dark);
+  font-weight: 500;
 }
 .navbar-custom .nav-link.active {
-  color: var(--color-bostonblue);
+  color: var(--primary-color);
 }
 
 .hero {
-  min-height: 60vh;
+  min-height: 70vh;
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -46,8 +62,9 @@ a:hover { color: var(--color-halfbaked); }
   align-items: center;
   position: relative;
 }
+
 .hero-overlay {
-  background: linear-gradient(0deg, rgba(4,38,68,0.7), rgba(4,38,68,0.3));
+  background: linear-gradient(135deg, rgba(44,90,160,0.8), rgba(40,167,69,0.6));
   position: absolute;
   top: 0;
   left: 0;
@@ -55,29 +72,55 @@ a:hover { color: var(--color-halfbaked); }
   bottom: 0;
   display: flex;
   align-items: center;
+  justify-content: center;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  color: white;
 }
 
 .service-icon {
-  width: 56px;
-  height: 56px;
+  width: 60px;
+  height: 60px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   border-radius: 50%;
-  background: var(--color-bostonblue);
+  background: var(--primary-color);
   color: #fff;
+  margin-bottom: 1rem;
 }
 
-.badge-status { 
-  background: #fff !important; 
-  color: var(--color-bluewhale) !important; 
-  border: 1px solid rgba(0,0,0,0.08); 
+.card {
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  transition: box-shadow 0.3s ease;
+}
+
+.card:hover {
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
 
 .whatsapp-fab {
   position: fixed;
-  right: 16px;
-  bottom: 16px;
+  right: 20px;
+  bottom: 20px;
   z-index: 1000;
+  background-color: #25d366;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  transition: transform 0.3s ease;
+}
+
+.whatsapp-fab:hover {
+  transform: scale(1.1);
 }
 
