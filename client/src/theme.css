@@ -3,51 +3,101 @@
   --color-periwinkle: #ccdcec;     /* Fondo claro / textos secundarios */
   --color-halfbaked: #84b1d4;      /* Acentos suaves */
   --color-bostonblue: #418ebd;     /* Links, acentos principales */
+  --color-ship: #3a3a3a;           /* Texto gris oscuro */
+  --color-armadillo: #494949;      /* Texto gris medio */
 }
 
 body {
   color: var(--color-bluewhale);
   background-color: #fff;
+  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
 }
 
-.link,
-a { color: var(--color-bostonblue); }
-a:hover { color: var(--color-halfbaked); }
+/* Enlaces */
+a { 
+  color: var(--color-bostonblue); 
+  transition: color 0.2s ease;
+}
+a:hover { 
+  color: var(--color-halfbaked); 
+}
 
+/* Clases de utilidad de colores */
 .bg-periwinkle { background-color: var(--color-periwinkle) !important; }
 .text-bluewhale { color: var(--color-bluewhale) !important; }
 .text-halfbaked { color: var(--color-halfbaked) !important; }
 .text-boston { color: var(--color-bostonblue) !important; }
+.text-ship { color: var(--color-ship) !important; }
+.text-armadillo { color: var(--color-armadillo) !important; }
 
-.btn-halfbaked { background-color: var(--color-halfbaked); color: #fff; border: none; }
-.btn-halfbaked:hover { background-color: #6fa0c0; color: #fff; }
+/* Botones personalizados */
+.btn-halfbaked { 
+  background-color: var(--color-halfbaked); 
+  color: #fff; 
+  border: none; 
+  transition: all 0.3s ease;
+}
+.btn-halfbaked:hover { 
+  background-color: #6fa0c0; 
+  color: #fff; 
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
 
-/* Botón primario Bootstrap en Boston Blue */
-.btn-primary { background-color: var(--color-bostonblue); border-color: var(--color-bostonblue); }
-.btn-primary:hover { background-color: var(--color-halfbaked); border-color: var(--color-halfbaked); }
+/* Botón primario Bootstrap */
+.btn-primary { 
+  background-color: var(--color-bostonblue); 
+  border-color: var(--color-bostonblue); 
+}
+.btn-primary:hover { 
+  background-color: var(--color-halfbaked); 
+  border-color: var(--color-halfbaked); 
+}
 
+/* Navbar personalizada */
 .navbar-custom {
   background-color: #fff;
-  border-bottom: 1px solid rgba(0,0,0,0.06);
+  border-bottom: 1px solid rgba(0,0,0,0.08);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+  padding: 1rem 0;
 }
-.navbar-custom .nav-link, .navbar-custom .navbar-brand {
+
+.navbar-custom .nav-link, 
+.navbar-custom .navbar-brand {
   color: var(--color-bluewhale);
+  font-weight: 500;
+  transition: color 0.2s ease;
 }
-.navbar-custom .nav-link.active {
+
+.navbar-custom .nav-link:hover {
   color: var(--color-bostonblue);
 }
 
+.navbar-custom .nav-link.active {
+  color: var(--color-bostonblue);
+  font-weight: 600;
+}
+
+.navbar-custom .navbar-brand {
+  font-size: 1.4rem;
+  font-weight: 600;
+}
+
+/* Hero Section */
 .hero {
-  min-height: 60vh;
+  min-height: 70vh;
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
   display: flex;
   align-items: center;
   position: relative;
+  margin-top: -76px; /* Compensar altura del navbar */
+  padding-top: 76px;
 }
+
 .hero-overlay {
-  background: linear-gradient(0deg, rgba(4,38,68,0.7), rgba(4,38,68,0.3));
+  background: linear-gradient(135deg, rgba(4,38,68,0.85) 0%, rgba(65,142,189,0.7) 100%);
   position: absolute;
   top: 0;
   left: 0;
@@ -57,27 +107,97 @@ a:hover { color: var(--color-halfbaked); }
   align-items: center;
 }
 
+.hero h1 {
+  color: #fff;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+.hero p {
+  color: rgba(255,255,255,0.95);
+}
+
+/* Service Icons */
 .service-icon {
-  width: 56px;
-  height: 56px;
+  width: 64px;
+  height: 64px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   border-radius: 50%;
-  background: var(--color-bostonblue);
+  background: linear-gradient(135deg, var(--color-bostonblue), var(--color-halfbaked));
   color: #fff;
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 4px 12px rgba(65,142,189,0.3);
+}
+
+/* Property Cards */
+.card {
+  border: none;
+  border-radius: 12px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.card-hover {
+  cursor: pointer;
+}
+
+.card-hover:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15) !important;
 }
 
 .badge-status { 
-  background: #fff !important; 
+  background: rgba(255,255,255,0.95) !important; 
   color: var(--color-bluewhale) !important; 
   border: 1px solid rgba(0,0,0,0.08); 
+  padding: 0.5rem 0.75rem;
+  font-weight: 500;
 }
 
+/* WhatsApp Button */
 .whatsapp-fab {
   position: fixed;
-  right: 16px;
-  bottom: 16px;
+  right: 20px;
+  bottom: 20px;
   z-index: 1000;
+  width: 60px;
+  height: 60px;
+  background-color: #25d366;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 1.8rem;
+  box-shadow: 0 4px 12px rgba(37, 211, 102, 0.4);
+  transition: all 0.3s ease;
 }
 
+.whatsapp-fab:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 20px rgba(37, 211, 102, 0.5);
+  color: white;
+}
+
+/* Footer */
+footer {
+  background-color: #fafafa;
+  border-top: 1px solid rgba(0,0,0,0.08);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .hero {
+    min-height: 50vh;
+  }
+  
+  .hero h1 {
+    font-size: 2rem;
+  }
+  
+  .navbar-custom .navbar-brand {
+    font-size: 1.2rem;
+  }
+}

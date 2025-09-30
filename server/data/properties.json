@@ -1,53 +1,124 @@
 [
   {
     "id": "1",
-    "title": "Departamento en Palermo",
-    "description": "2 ambientes luminosos cerca de parques y polo gastronómico.",
-    "priceUsd": 150000,
-    "address": "Cerviño 4800, Palermo, CABA",
+    "title": "Casa en Barrio Centro",
+    "description": "Amplia casa de 3 dormitorios en el corazón de Ramallo. Living comedor, cocina equipada, 2 baños completos, patio con parrilla y cochera para 2 autos. Excelente ubicación cerca de escuelas y comercios.",
+    "priceUsd": 95000,
+    "images": [
+      "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?q=80&w=1200&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1565538420870-da08ff96a207?q=80&w=1200&auto=format&fit=crop"
+    ],
+    "type": "Casa",
+    "status": "En venta",
+    "address": "Barrio Centro, Ramallo",
+    "bedrooms": 3,
+    "bathrooms": 2,
+    "featured": true
+  },
+  {
+    "id": "2",
+    "title": "Departamento 2 ambientes - Zona Céntrica",
+    "description": "Moderno departamento de 2 ambientes con balcón. Cocina integrada, baño completo, muy luminoso. Edificio con ascensor y seguridad. Ideal inversión o primera vivienda.",
+    "priceUsd": 55000,
+    "images": [
+      "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?q=80&w=1200&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1502672023488-70e25813eb80?q=80&w=1200&auto=format&fit=crop"
+    ],
+    "type": "Departamento",
+    "status": "En venta",
+    "address": "Av. San Martín, Ramallo",
+    "bedrooms": 1,
+    "bathrooms": 1,
+    "featured": true
+  },
+  {
+    "id": "3",
+    "title": "Quinta con pileta en Villa Ramallo",
+    "description": "Hermosa quinta de 2 hectáreas con casa principal de 4 dormitorios, pileta, quincho completo, caballeriza. Parquizada con árboles frutales. Ideal para descanso o emprendimiento turístico.",
+    "priceUsd": 180000,
+    "images": [
+      "https://images.unsplash.com/photo-1518780664697-55e3ad937233?q=80&w=1200&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1416331108676-a22ccb276e35?q=80&w=1200&auto=format&fit=crop"
+    ],
+    "type": "Quinta",
+    "status": "En venta",
+    "address": "Villa Ramallo",
+    "bedrooms": 4,
+    "bathrooms": 3,
+    "featured": true
+  },
+  {
+    "id": "4",
+    "title": "Local Comercial sobre Av. Savio",
+    "description": "Excelente local comercial de 120m2 sobre avenida principal. Vidriera amplia, baño, depósito. Apto para cualquier rubro. Muy buen tránsito vehicular y peatonal.",
+    "priceUsd": 800,
+    "images": [
+      "https://images.unsplash.com/photo-1528698827591-e19ccd7bc23d?q=80&w=1200&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1517502884422-41eaead166d4?q=80&w=1200&auto=format&fit=crop"
+    ],
+    "type": "Local",
+    "status": "En alquiler",
+    "address": "Av. Jorge Newbery Savio, Ramallo",
+    "featured": false
+  },
+  {
+    "id": "5",
+    "title": "Terreno en Barrio Las Acacias",
+    "description": "Lote de 15x30 metros en barrio residencial consolidado. Todos los servicios disponibles. Excelente ubicación para construcción de vivienda familiar.",
+    "priceUsd": 25000,
+    "images": [
+      "https://images.unsplash.com/photo-1500382017468-9049fed747ef?q=80&w=1200&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1625244724120-1fd1d34d00f6?q=80&w=1200&auto=format&fit=crop"
+    ],
+    "type": "Terreno",
+    "status": "En venta",
+    "address": "Barrio Las Acacias, Ramallo",
+    "featured": false
+  },
+  {
+    "id": "6",
+    "title": "Casa en Pérez Millán",
+    "description": "Casa de 2 dormitorios en excelente estado. Living comedor, cocina, baño, patio con parrilla. Barrio tranquilo y familiar a pocas cuadras del centro.",
+    "priceUsd": 65000,
+    "images": [
+      "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?q=80&w=1200&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1568605114967-8130f3a36994?q=80&w=1200&auto=format&fit=crop"
+    ],
+    "type": "Casa",
+    "status": "En venta",
+    "address": "Pérez Millán, Ramallo",
     "bedrooms": 2,
     "bathrooms": 1,
-    "lat": -34.573,
-    "lng": -58.419,
+    "featured": false
+  },
+  {
+    "id": "7",
+    "title": "Departamento 3 ambientes con cochera",
+    "description": "Amplio departamento de 3 ambientes, 2 dormitorios, living comedor con balcón, cocina separada, baño completo. Incluye cochera cubierta. Edificio con SUM y seguridad 24hs.",
+    "priceUsd": 75000,
     "images": [
-      "/uploads/1757692143686_representacion-3d-del-modelo-de-casa.jpg"
+      "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?q=80&w=1200&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?q=80&w=1200&auto=format&fit=crop"
     ],
-    "featured": true,
     "type": "Departamento",
-    "status": "En venta"
+    "status": "En venta",
+    "address": "Centro, Ramallo",
+    "bedrooms": 2,
+    "bathrooms": 1,
+    "featured": false
   },
   {
-    "id": "1757522516701",
-    "title": "Casa de prueba oLK3Up - EDITADA",
-    "description": "Una hermosa casa de prueba para verificar la funcionalidad",
-    "priceUsd": 250000,
-    "images": [
-      "/uploads/1757661240692_moderna-casa-de-lujo-con-piscina.jpg"
-    ],
-    "featured": false,
-    "type": "Casa",
-    "status": "En alquiler"
-  },
-  {
-    "id": "1757661924099",
-    "title": "🏠 Nueva Casa de Prueba SYNC",
-    "description": "Esta propiedad debe aparecer inmediatamente en la página principal",
+    "id": "8",
+    "title": "Campo agrícola 50 hectáreas",
+    "description": "Campo apto para agricultura y ganadería. 80% aprovechable, con aguadas naturales. Casa de campo incluida con 2 dormitorios. Excelente inversión productiva.",
     "priceUsd": 350000,
-    "images": [],
-    "featured": true,
-    "type": "Casa",
-    "status": "En venta"
-  },
-  {
-    "id": "1757692420296",
-    "title": "terreno de 50 x 50",
-    "description": "excelente zona",
-    "priceUsd": 2000,
     "images": [
-      "/uploads/1757692410623_paisaje-de-campo.jpg"
+      "https://images.unsplash.com/photo-1523348837708-15d4a09cfac2?q=80&w=1200&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1625246333195-78d9c38ad449?q=80&w=1200&auto=format&fit=crop"
     ],
-    "featured": false,
-    "type": "Terreno",
-    "status": "En venta"
+    "type": "Campo",
+    "status": "En venta",
+    "address": "Zona Rural, Ramallo",
+    "featured": false
   }
 ]
