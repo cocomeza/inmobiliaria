@@ -35,7 +35,7 @@ function PropertyCard({ item }: PropertyCardProps) {
 
   const cover = getImageUrl(item.images?.[0] || '/placeholder.jpg')
 
-  // Lazy loading con Intersection Observer
+  // Lazy loading con Intersection Observer - más agresivo para cargar antes
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -44,7 +44,10 @@ function PropertyCard({ item }: PropertyCardProps) {
           observer.disconnect()
         }
       },
-      { threshold: 0.1, rootMargin: '50px' }
+      { 
+        threshold: 0.01, // Detectar cuando solo el 1% es visible
+        rootMargin: '200px' // Empezar a cargar 200px antes de que sea visible
+      }
     )
 
     if (imgRef.current) {
@@ -67,41 +70,33 @@ function PropertyCard({ item }: PropertyCardProps) {
     <Link href={`/propiedad/${item.id}`}>
       <Card className="h-100 shadow-sm card-hover" data-aos="fade-up" as="div" role="button">
         <div style={{ position: 'relative' }} ref={imgRef}>
-          {isInView && (
-            <>
-              {!imageLoaded && !imageError && (
-                <div 
-                  className="d-flex align-items-center justify-content-center bg-light"
-                  style={{ height: '200px' }}
-                >
-                  <Spinner animation="border" size="sm" variant="secondary" />
-                </div>
-              )}
-              <Card.Img 
-                variant="top" 
-                src={imageError ? 'https://placehold.co/400x300/f0f0f0/999999?text=Sin+imagen' : cover}
-                alt={item.title} 
-                className="card-img-responsive"
-                style={{ 
-                  objectFit: 'cover', 
-                  height: '200px',
-                  width: '100%',
-                  display: imageLoaded || imageError ? 'block' : 'none'
-                }}
-                onLoad={handleImageLoad}
-                onError={handleImageError}
-                loading="lazy"
-              />
-            </>
-          )}
-          {!isInView && (
+          {/* Mostrar spinner mientras carga */}
+          {!imageLoaded && !imageError && (
             <div 
-              className="bg-light d-flex align-items-center justify-content-center"
-              style={{ height: '200px' }}
+              className="d-flex align-items-center justify-content-center bg-light"
+              style={{ height: '200px', position: imageLoaded ? 'absolute' : 'relative', width: '100%', top: 0 }}
             >
-              <div className="text-muted small">Cargando...</div>
+              <Spinner animation="border" size="sm" variant="secondary" />
             </div>
           )}
+          
+          {/* Imagen - cargar siempre, no solo cuando isInView */}
+          <Card.Img 
+            variant="top" 
+            src={imageError ? 'https://placehold.co/400x300/f0f0f0/999999?text=Sin+imagen' : cover}
+            alt={item.title} 
+            className="card-img-responsive"
+            style={{ 
+              objectFit: 'cover', 
+              height: '200px',
+              width: '100%',
+              display: imageLoaded || imageError ? 'block' : 'none'
+            }}
+            onLoad={handleImageLoad}
+            onError={handleImageError}
+            loading="lazy"
+          />
+          
           <Badge bg="light" text="dark" className="position-absolute m-2 badge-status" style={{ top: 0, right: 0 }}>
             {item.status}
           </Badge>
