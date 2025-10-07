@@ -15,7 +15,13 @@ export default function Properties() {
     queryKey: ['/api/properties'],
     queryFn: async () => {
       const res = await apiRequest('/api/properties')
-      const raw = await res.json() as any[]
+      const data = await res.json() as any
+      
+      // Manejar ambos formatos de respuesta:
+      // - Array directo: [...]
+      // - Objeto con properties: { properties: [...], pagination: {...} }
+      const raw = Array.isArray(data) ? data : (data.properties || [])
+      
       const mapped: PropertyItem[] = (raw || []).map((p: any) => ({
         id: String(p.id || p._id || ''),
         title: p.title,
