@@ -36,7 +36,12 @@ export default function Properties() {
         featured: Boolean(p.featured)
       }))
       return mapped.filter(p => Boolean(p.id))
-    }
+    },
+    // Optimizaciones de caché para mejorar rendimiento
+    staleTime: 5 * 60 * 1000, // Los datos se consideran "frescos" por 5 minutos
+    cacheTime: 10 * 60 * 1000, // Mantener en caché por 10 minutos
+    refetchOnWindowFocus: false, // No recargar al volver a la pestaña
+    retry: 2, // Reintentar solo 2 veces en caso de error
   })
 
   const filtered = useMemo(() => {
@@ -56,8 +61,12 @@ export default function Properties() {
 
       <Row className="g-3 g-md-4">
         {isLoading ? (
-          <Col xs={12} className="text-center py-4">
-            <p>Cargando propiedades...</p>
+          <Col xs={12} className="text-center py-5">
+            <div className="spinner-border text-primary mb-3" role="status" style={{ width: '3rem', height: '3rem' }}>
+              <span className="visually-hidden">Cargando...</span>
+            </div>
+            <h5 className="text-muted">Cargando propiedades...</h5>
+            <p className="text-muted small">Esto puede tardar unos segundos si el servidor estaba inactivo</p>
           </Col>
         ) : filtered.length === 0 ? (
           <Col xs={12} className="text-center py-4">

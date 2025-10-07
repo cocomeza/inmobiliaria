@@ -17,10 +17,12 @@ import Footer from './components/Footer'
 import Admin from './pages/Admin'
 import Login from './pages/Login'
 import ProtectedRoute from './components/ProtectedRoute'
-
- 
+import { useWarmupBackend } from './hooks/useWarmupBackend'
 
 function App() {
+  // Despertar el backend al cargar la app (Render free tier se duerme)
+  useWarmupBackend()
+  
   useEffect(() => {
     AOS.init({ duration: 700, once: true })
   }, [])
